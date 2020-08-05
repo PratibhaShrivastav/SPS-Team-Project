@@ -262,6 +262,14 @@ $(document).ready(function() {
           searchResultsHTML += '<div class="release">Release Date: ' + releaseDate + '</div><br>';
           searchResultsHTML += '<div class="overview">' + overview + '</div><br>';
           searchResultsHTML += '<div class="rating">Rating: ' + voteAverage + '/10</div><br>';
+          searchResultsHTML += '<div class="col-sm-3 btn btn-primary">8:30 AM' + '</div>';
+          searchResultsHTML += '<div class="col-sm-3 btn btn-primary">10:00 AM' + '</div>';
+          searchResultsHTML += '<div class="col-sm-3 btn btn-primary">12:30 PM' + '</div>';
+          searchResultsHTML += '<div class="col-sm-3 btn btn-primary">3:00 PM' + '</div>';
+          searchResultsHTML += '<div class="col-sm-3 btn btn-primary">4:10 PM' + '</div>';
+          searchResultsHTML += '<div class="col-sm-3 btn btn-primary">5:30 PM' + '</div>';
+          searchResultsHTML += '<div class="col-sm-3 btn btn-primary">8:00 PM' + '</div>';
+          searchResultsHTML += '<div class="col-sm-3 btn btn-primary">10:30 PM' + '</div>';
           searchResultsHTML += '</div>'; //close movieDetails
           searchResultsHTML += '</div>'; //close modal-dialog
           searchResultsHTML += '</div>'; //close modal
