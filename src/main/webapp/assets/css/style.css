@@ -63,6 +63,14 @@ color: white;
 font-size: 24px;
 text-shadow: 2px 2px 4px #a20909;
 }
+#toDoList{
+margin-bottom: 10px;
+margin-left: 15px;
+text-align: left;
+color: white;
+font-size: 24px;
+text-shadow: 2px 2px 4px #a20909;
+}
 /* img 'borders' */
 button.btnModal{
     background-color: #222;
