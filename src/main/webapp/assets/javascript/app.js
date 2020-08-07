@@ -8,9 +8,26 @@ $(document).ready(function() {
 
   const nowPlayingURL = apiBaseURL + 'movie/now_playing?api_key=' + apiKey;
 
+  // Check genreIDs and genre names:
+  // http://api.themoviedb.org/3/movie/:movieID?api_key=<<>>
+  //28 = action
+  //12 = adventure
+  //16 = animation
+  //35 = comedy
+  //80 = crime
+  //18 = drama
+  //10751 = family
+  //14 = fantasy
+  //36 = history
+  //27 = horror
+  //10402 = music
+  //10749 = romance
+  //878 = science fiction
+  //53 = thriller
 
   //  Get "now playing" data on default.
   //  Change results when a genre is clicked on.
+
   function getModalCode(obj, i, movieKey) {
     var poster = imageBaseUrl + 'w300' + obj.results[i].poster_path;
     var title = obj.results[i].original_title;
@@ -43,53 +60,16 @@ $(document).ready(function() {
 
     return codeHTML;
   }
-  function getNowPlayingData() {
-    $.getJSON(nowPlayingURL, function(nowPlayingData) {
-      for (let i = 0; i < nowPlayingData.results.length; i++) {
-        var dataRes = nowPlayingData.results[i].id;
-        // dataRes = movie ID
-        var thisMovieUrl = apiBaseURL + 'movie/' + dataRes + '/videos?api_key=' + apiKey;
-        // console.log(i)
 
-        $.getJSON(thisMovieUrl, function(movieKey) {
-          var codeHTML = getModalCode(nowPlayingData, i, movieKey);
-            $('#movie-grid').append(codeHTML);
-        })
-      }
-      $('#movieGenreLabel').html("Now Playing");
-    })
-  }
-
-
-  // Check genreIDs and genre names:
-  // http://api.themoviedb.org/3/movie/:movieID?api_key=<<>>
-  //28 = action
-  //12 = adventure
-  //16 = animation
-  //35 = comedy
-  //80 = crime
-  //18 = drama
-  //10751 = family
-  //14 = fantasy
-  //36 = history
-  //27 = horror
-  //10402 = music
-  //10749 = romance
-  //878 = science fiction
-  //53 = thriller
-
-  function getMoviesByGenre(genre_id) {
-    const getMoviesByGenreURL = apiBaseURL + 'genre/' + genre_id + '/movies?api_key=' + apiKey + '&language=en-US&include_adult=false&sort_by=created_at.asc';
-    // console.log(getMoviesByGenreURL);
-
-    $.getJSON(getMoviesByGenreURL, function(genreData) {
+  function getDataFromJson(url){
+      $.getJSON(url, function(data) {
       // console.log(genreData)
-      for (let i = 0; i < genreData.results.length; i++) {
-        var dataRes = genreData.results[i].id;
+      for (let i = 0; i < data.results.length; i++) {
+        var dataRes = data.results[i].id;
         var thisMovieUrl = apiBaseURL + 'movie/' + dataRes + '/videos?api_key=' + apiKey;
 
-        $.getJSON(thisMovieUrl, function(movieKey) {
-            var codeHTML = getModalCode(genreData, i, movieKey);
+        $.getJSON(url, function(movieKey) {
+            var codeHTML = getModalCode(data, i, movieKey);
             $('#movie-grid').append(codeHTML);
           //Without this line, there is nowhere for the posters and overviews to display so it doesn't show up
           // $('#movieGenreLabel').html("Now Playing");
@@ -97,6 +77,16 @@ $(document).ready(function() {
         })
       }
     })
+  }
+
+  function getNowPlayingData() {
+      getDataFromJson(nowPlayingURL);
+  }
+
+
+  function getMoviesByGenre(genre_id) {
+    const getMoviesByGenreURL = apiBaseURL + 'genre/' + genre_id + '/movies?api_key=' + apiKey + '&language=en-US&include_adult=false&sort_by=created_at.asc';
+    getDataFromJson(getMoviesByGenreURL);
   }
   // call getMoviesByGenre using click function but call getNowPlayingData on default.
   getNowPlayingData();
@@ -189,28 +179,18 @@ $(document).ready(function() {
     //search term is only concerned with what the user inputted
     //Get input with .val();
     searchTerm = $('.form-control').val();
+    console.log("the search term is" + searchTerm);
+    $('#movieGenreLabel').html('You searched for "' + searchTerm + '"');
     searchMovies();
   });
 
   function searchMovies() {
     //need to include query in url. (ex: &query=boss+baby)
     const searchMovieURL = apiBaseURL + 'search/movie?api_key=' + apiKey + '&language=en-US&page=1&include_adult=false&query=' + searchTerm;
-    // console.log(searchMovieURL);
-    $.getJSON(searchMovieURL, function(movieSearchResults) {
-      // console.log(movieSearchResults);
-      for (let i = 0; i < movieSearchResults.results.length; i++) {
-        var dataRes = movieSearchResults.results[i].id;
-        var thisMovieUrl = apiBaseURL + 'movie/' + dataRes + '/videos?api_key=' + apiKey;
-
-        $.getJSON(thisMovieUrl, function(movieKey) {
-          // console.log(movieKey)
-          var codeHTML = getModalCode(movieSearchResults, i, movieKey);
-          $('#movie-grid').append(codeHTML);
-        })
-      }
-      $('#movieGenreLabel').html(searchTerm);
-    })
+    getDataFromJson(searchMovieURL);
+    console.log("the url is " + searchMovieURL);
   }
+
 });
 
 //.append(nowPlayingHTML) adds nowPlayingHTML to the present HTML
