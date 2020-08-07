@@ -1,20 +1,10 @@
-<!DOCTYPE html>
-<html>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib prefix="t" tagdir="/WEB-INF/tags/" %>
 
-<head>
+<t:homepage>
 
-	<title>BingeList</title>
+    <jsp:attribute name="header">
 
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-
-	<link rel="stylesheet" type="text/css" href="assets/css/reset.css">
-	<link rel="stylesheet" type="text/css" href="assets/css/style.css">
-
-	<link href="https://fonts.googleapis.com/css?family=Carrois+Gothic+SC" rel="stylesheet">
-
-</head>
-
-<body>
 	<nav class="navbar navbar-inverse">
 		<div class="container-fluid">
 			<!-- Brand and toggle get grouped for better mobile display -->
@@ -69,7 +59,10 @@
 		<!-- /.container-fluid -->
 	</nav>
 
-
+    </jsp:attribute>
+    
+    <jsp:body>
+        
 	<!-- Displaying the movies -->
 	<div id="movie-display">
 	<div class="container">
@@ -85,19 +78,6 @@
 	</div>
 	</div>
 
+	</jsp:body>
 
-	<!-- JQUERY -->
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-	<!-- Latest compiled and minified JavaScript -->
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-	<!-- Firebase -->
-	<script src="https://www.gstatic.com/firebasejs/5.2.0/firebase.js"></script>
-	<!-- css -->
-	<script type="text/javascript" src="assets/javascript/app.js"></script>
-	<!-- <script type="text/javascript" src="assets/javascript/app-1.js"></script>
-	<script type="text/javascript" src="assets/javascript/app-2.js"></script> -->
-
-
-</body>
-
-</html>
+</t:homepage>
