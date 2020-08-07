@@ -11,7 +11,38 @@ $(document).ready(function() {
 
   //  Get "now playing" data on default.
   //  Change results when a genre is clicked on.
+  function getModalCode(obj, i, movieKey) {
+    var poster = imageBaseUrl + 'w300' + obj.results[i].poster_path;
+    var title = obj.results[i].original_title;
+    var releaseDate = obj.results[i].release_date;
+    var overview = obj.results[i].overview;
+    var voteAverage = obj.results[i].vote_average;
+    var youtubeKey = movieKey.results[0].key;
+    var youtubeLink = 'https://www.youtube.com/watch?v=' + youtubeKey;
+    var codeHTML = '';
+    codeHTML += '<div class="col-sm-3 col-md-3 col-lg-3 eachMovie">';
+    codeHTML += '<button type="button" class="btnModal" data-toggle="modal" data-target="#exampleModal' + i + '" data-whatever="@' + i + '">' + '<img src="' + poster + '"></button>';
+    codeHTML += '<div class="modal fade" id="exampleModal' + i + '" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">';
+    codeHTML += '<div class="modal-dialog" role="document">';
+    codeHTML += '<div class="modal-content col-sm-12 col-lg-12">';
+    codeHTML += '<div class="col-sm-6 moviePosterInModal">';
+    codeHTML += '<a href="' + youtubeLink + '"><img src="' + poster + '"></a>';
+    codeHTML += '</div><br>'; //close trailerLink
+    codeHTML += '<div class="col-sm-6 movieDetails">';
+    codeHTML += '<div class="movieName">' + title + '</div><br>';
+    codeHTML += '<div class="linkToTrailer"><a href="' + youtubeLink + '"><span class="glyphicon glyphicon-play"></span>&nbspPlay trailer</a>' + '</div><br>';
+    codeHTML += '<div class="release">Release Date: ' + releaseDate + '</div><br>';
+    codeHTML += '<div class="overview">' + overview + '</div><br>';
+    codeHTML += '<div class="rating">Rating: ' + voteAverage + '/10</div><br>';
+    codeHTML += '<button type="button" onclick="alert(\'Added to your binge list!\')">Add to Binge-List!</button>';
+    codeHTML += '</div>'; //close movieDetails
+    codeHTML += '</div>'; //close modal-content
+    codeHTML += '</div>'; //close modal-dialog
+    codeHTML += '</div>'; //close modal
+    codeHTML += '</div>'; //close off each div
 
+    return codeHTML;
+  }
   function getNowPlayingData() {
     $.getJSON(nowPlayingURL, function(nowPlayingData) {
       for (let i = 0; i < nowPlayingData.results.length; i++) {
@@ -21,52 +52,11 @@ $(document).ready(function() {
         // console.log(i)
 
         $.getJSON(thisMovieUrl, function(movieKey) {
-          // console.log(i);
-          // console.log(thisMovieUrl)
-          // console.log(movieKey)
-          var poster = imageBaseUrl + 'w300' + nowPlayingData.results[i].poster_path;
-
-          var title = nowPlayingData.results[i].original_title;
-
-          var releaseDate = nowPlayingData.results[i].release_date;
-
-          var overview = nowPlayingData.results[i].overview;
-
-          var voteAverage = nowPlayingData.results[i].vote_average;
-
-          var youtubeKey = movieKey.results[0].key;
-
-          var youtubeLink = 'https://www.youtube.com/watch?v=' + youtubeKey;
-          // console.log(youtubeLink)
-          var nowPlayingHTML = '';
-          // added in i (looping through the results) to nowPlayingHTML. Without it, only the details for the first movie in the results display in the modal no matter which movie poster you click on.
-          nowPlayingHTML += '<div class="col-sm-3 eachMovie">';
-          nowPlayingHTML += '<button type="button" class="btnModal" data-toggle="modal" data-target="#exampleModal' + i + '" data-whatever="@' + i + '">' + '<img src="' + poster + '"></button>';
-          nowPlayingHTML += '<div class="modal fade" id="exampleModal' + i + '" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">';
-          nowPlayingHTML += '<div class="modal-dialog" role="document">';
-          nowPlayingHTML += '<div class="modal-content col-sm-12">';
-          nowPlayingHTML += '<div class="col-sm-6 moviePosterInModal">';
-          nowPlayingHTML += '<a href="' + youtubeLink + '"><img src="' + poster + '"></a>';
-          nowPlayingHTML += '</div><br>'; //close trailerLink
-          nowPlayingHTML += '<div class="col-sm-6 movieDetails">';
-          nowPlayingHTML += '<div class="movieName">' + title + '</div><br>';
-          nowPlayingHTML += '<div class="linkToTrailer"><a href="' + youtubeLink + '"><span class="glyphicon glyphicon-play"></span>&nbspPlay trailer</a>' + '</div><br>';
-          nowPlayingHTML += '<div class="release">Release Date: ' + releaseDate + '</div><br>';
-          // nowPlayingHTML += '<div class="genre">Genre: '+genre+'</div><br>';
-          nowPlayingHTML += '<div class="overview">' + overview + '</div><br>'; // Put overview in a separate div to make it easier to style
-          nowPlayingHTML += '<div class="rating">Rating: ' + voteAverage + '/10</div><br>';
-          nowPlayingHTML += '</div>'; //close movieDetails
-          nowPlayingHTML += '</div>'; //close modal-content
-          nowPlayingHTML += '</div>'; //close modal-dialog
-          nowPlayingHTML += '</div>'; //close modal
-          nowPlayingHTML += '</div>'; //close off each div
-
-          $('#movie-grid').append(nowPlayingHTML);
-          //Without this line, there is nowhere for the posters and overviews to display so it doesn't show up
-          $('#movieGenreLabel').html("Now Playing");
-          //h1 will change depending on what is clicked. Will display "Now Playing" in this case.
+          var codeHTML = getModalCode(nowPlayingData, i, movieKey);
+            $('#movie-grid').append(codeHTML);
         })
       }
+      $('#movieGenreLabel').html("Now Playing");
     })
   }
 
@@ -99,34 +89,8 @@ $(document).ready(function() {
         var thisMovieUrl = apiBaseURL + 'movie/' + dataRes + '/videos?api_key=' + apiKey;
 
         $.getJSON(thisMovieUrl, function(movieKey) {
-          var poster = imageBaseUrl + 'w300' + genreData.results[i].poster_path;
-          var title = genreData.results[i].original_title;
-          var releaseDate = genreData.results[i].release_date;
-          var overview = genreData.results[i].overview;
-          var voteAverage = genreData.results[i].vote_average;
-          var youtubeKey = movieKey.results[0].key;
-          var youtubeLink = 'https://www.youtube.com/watch?v=' + youtubeKey;
-          var genreHTML = '';
-          genreHTML += '<div class="col-sm-3 col-md-3 col-lg-3 eachMovie">';
-          genreHTML += '<button type="button" class="btnModal" data-toggle="modal" data-target="#exampleModal' + i + '" data-whatever="@' + i + '">' + '<img src="' + poster + '"></button>';
-          genreHTML += '<div class="modal fade" id="exampleModal' + i + '" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">';
-          genreHTML += '<div class="modal-dialog" role="document">';
-          genreHTML += '<div class="modal-content col-sm-12 col-lg-12">';
-          genreHTML += '<div class="col-sm-6 moviePosterInModal">';
-          genreHTML += '<a href="' + youtubeLink + '"><img src="' + poster + '"></a>';
-          genreHTML += '</div><br>'; //close trailerLink
-          genreHTML += '<div class="col-sm-6 movieDetails">';
-          genreHTML += '<div class="movieName">' + title + '</div><br>';
-          genreHTML += '<div class="linkToTrailer"><a href="' + youtubeLink + '"><span class="glyphicon glyphicon-play"></span>&nbspPlay trailer</a>' + '</div><br>';
-          genreHTML += '<div class="release">Release Date: ' + releaseDate + '</div><br>';
-          genreHTML += '<div class="overview">' + overview + '</div><br>';
-          genreHTML += '<div class="rating">Rating: ' + voteAverage + '/10</div><br>';
-          genreHTML += '</div>'; //close movieDetails
-          genreHTML += '</div>'; //close modal-content
-          genreHTML += '</div>'; //close modal-dialog
-          genreHTML += '</div>'; //close modal
-          genreHTML += '</div>'; //close off each div
-          $('#movie-grid').append(genreHTML);
+            var codeHTML = getModalCode(genreData, i, movieKey);
+            $('#movie-grid').append(codeHTML);
           //Without this line, there is nowhere for the posters and overviews to display so it doesn't show up
           // $('#movieGenreLabel').html("Now Playing");
           //h1 will change depending on what is clicked. Will display "Now Playing" in this case.
@@ -240,38 +204,11 @@ $(document).ready(function() {
 
         $.getJSON(thisMovieUrl, function(movieKey) {
           // console.log(movieKey)
-          var poster = imageBaseUrl + 'w300' + movieSearchResults.results[i].poster_path;
-          var title = movieSearchResults.results[i].original_title;
-          var releaseDate = movieSearchResults.results[i].release_date;
-          var overview = movieSearchResults.results[i].overview;
-          var voteAverage = movieSearchResults.results[i].vote_average;
-          var youtubeKey = movieKey.results[0].key;
-          var youtubeLink = 'https://www.youtube.com/watch?v=' + youtubeKey;
-          var searchResultsHTML = '';
-          searchResultsHTML += '<div class="col-sm-3 col-md-3 col-lg-3 eachMovie">';
-          searchResultsHTML += '<button type="button" class="btnModal" data-toggle="modal" data-target="#exampleModal' + i + '" data-whatever="@' + i + '">' + '<img src="' + poster + '"></button>';
-          searchResultsHTML += '<div class="modal fade" id="exampleModal' + i + '" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">';
-          searchResultsHTML += '<div class="modal-dialog" role="document">';
-          searchResultsHTML += '<div class="modal-content col-sm-12 col-lg-12">';
-          searchResultsHTML += '<div class="col-sm-6 moviePosterInModal">';
-          searchResultsHTML += '<a href="' + youtubeLink + '"><img src="' + poster + '"></a>';
-          searchResultsHTML += '</div><br>'; //close trailerLink
-          searchResultsHTML += '<div class="col-sm-6 movieDetails">';
-          searchResultsHTML += '<div class="movieName">' + title + '</div><br>';
-          searchResultsHTML += '<div class="linkToTrailer"><a href="' + youtubeLink + '"><span class="glyphicon glyphicon-play"></span>&nbspPlay trailer</a>' + '</div><br>';
-          searchResultsHTML += '<div class="release">Release Date: ' + releaseDate + '</div><br>';
-          searchResultsHTML += '<div class="overview">' + overview + '</div><br>';
-          searchResultsHTML += '<div class="rating">Rating: ' + voteAverage + '/10</div><br>';
-          searchResultsHTML += '</div>'; //close movieDetails
-          searchResultsHTML += '</div>'; //close modal-dialog
-          searchResultsHTML += '</div>'; //close modal
-          searchResultsHTML += '</div>'; //close off each div
-          // console.log(searchResultsHTML)
-          $('#movie-grid').append(searchResultsHTML);
-          //Label will be whatever user input was
-          $('#movieGenreLabel').html(searchTerm);
+          var codeHTML = getModalCode(movieSearchResults, i, movieKey);
+          $('#movie-grid').append(codeHTML);
         })
       }
+      $('#movieGenreLabel').html(searchTerm);
     })
   }
 });
