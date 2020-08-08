@@ -5,6 +5,13 @@
 <html>
 <head>
 	<title>BingeList</title>
+    
+    <meta name="google-signin-client_id" content="604444953382-df3e44jciqotq136aj24fasopo8k6ru2.apps.googleusercontent.com">
+
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <script src="https://apis.google.com/js/api:client.js"></script>
+
+    <script type="text/javascript" src="assets/javascript/auth.js"></script>
 
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 

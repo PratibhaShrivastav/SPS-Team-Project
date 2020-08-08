@@ -50,7 +50,12 @@
 								</button>
 							</form>
 							<li class="icon-bar">
-									<a id="" href="index.html"> Sign in</a>
+                                <div class="g-signin2" data-onsuccess="onSignIn" data-width="120" data-height="45"></div>
+							</li>
+                            <li class="icon-bar">
+                                <div class="sign-out">
+                                    <button id="signout-button" onclick="signOut()">Sign Out</button>                                
+                                </div>
 							</li>
 						</ul>
 			</div>
