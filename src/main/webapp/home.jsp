@@ -68,7 +68,7 @@
 	<div class="container">
 		<div class="row">
 			<div class="genreLabel">
-				<h1 id="movieGenreLabel"></h1></div>
+				<!-- <h1 id="movieGenreLabel"></h1></div> -->
 			<!-- We need the h1 to change accordingly depending on what was clicked. -->
 			<div id="movie-grid">
 				
