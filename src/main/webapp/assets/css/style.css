@@ -32,6 +32,33 @@ ul.dropdown-menu {
 
 /* sign-in html */
 /* hide sign in forms */
+
+.g-signin2{
+    margin-top: 8px;
+}
+
+.sign-out{
+    display: none;
+    margin-top: 8px;
+}
+
+#signout-button{
+    background-color: rgb(255, 255, 255);
+    color: rgb(124, 124, 124);
+    border: 0;
+    margin: auto;
+    width: 120px;
+    height: 45px;
+    border-radius: 3px;
+    font-size: 15px;
+    transition: all ease-in-out 250ms;
+}
+
+#signout-button:hover{
+    background-color: rgb(226, 228, 226);
+    cursor: pointer;
+}
+
 .signin-hide {
     display: none;
 }

@@ -37,22 +37,27 @@
 							<li><a href="#" class="scifi" id="scifi">Science Fiction</a></li>
 							<li><a href="#" class="thriller" id="thriller">Thriller</a></li>
 						</ul>
-						</li>
-						</ul>
-						<ul class="nav navbar-nav navbar-right">
-							<form class="navbar-form navbar-right searchForm">
-								<div class="form-group">
-									<input id="searchMovieNeWindowxfxInput" type="text" class="form-control" placeholder="Search movies">
-								</div>
-								<button type="submit" class="btn btn-default">
-									<!-- Submit -->
-									<i class="glyphicon glyphicon-search"></i>
-								</button>
-							</form>
-							<li class="icon-bar">
-									<a id="" href="index.html"> Sign in</a>
-							</li>
-						</ul>
+                    </li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <form class="navbar-form navbar-right searchForm">
+                        <div class="form-group">
+                            <input id="searchMovieNeWindowxfxInput" type="text" class="form-control" placeholder="Search movies">
+                        </div>
+                        <button type="submit" class="btn btn-default">
+                            <!-- Submit -->
+                            <i class="glyphicon glyphicon-search"></i>
+                        </button>
+                    </form>
+                    <li class="icon-bar">
+                        <div class="g-signin2" data-onsuccess="onSignIn" data-width="120" data-height="45"></div>
+                    </li>
+                    <li class="icon-bar">
+                        <div class="sign-out">
+                            <button id="signout-button" onclick="signOut()">Sign Out</button>                                
+                        </div>
+                    </li>
+                </ul>
 			</div>
 			<!-- /.navbar-collapse -->
 		</div>
