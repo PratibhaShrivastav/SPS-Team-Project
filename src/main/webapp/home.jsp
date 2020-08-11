@@ -1,10 +1,8 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags/" %>
 
-<t:homepage>
-
+<t:home-page>
     <jsp:attribute name="header">
-
 	<nav class="navbar navbar-inverse">
 		<div class="container-fluid">
 			<!-- Brand and toggle get grouped for better mobile display -->
@@ -72,17 +70,19 @@
 	<div id="movie-display">
 	<div class="container">
 		<div class="row">
-			<div class="genreLabel">
-				<h1 id="movieGenreLabel"></h1></div>
-			<!-- We need the h1 to change accordingly depending on what was clicked. -->
-			<div id="movie-grid">
-				
+			<div id="trend-grid">
+            </div>
+	</div>
+    <div class="row">
+        <div id="movie-grid">	
 				<!-- Jquery get us the movie posters! Need a place to put the poster images -->
-			</div>
 		</div>
+    </div>
+    <div class="row">
+        <div id="search-grid">	
+				<!-- Jquery get us the movie posters! Need a place to put the poster images -->
+		</div>
+    </div>
 	</div>
-	</div>
-
 	</jsp:body>
-
-</t:homepage>
+</t:home-page>
