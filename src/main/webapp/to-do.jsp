@@ -10,7 +10,6 @@
         <h1 id="toDoList"> To-Do List</h1>
         <div class="container">
             <div class="row">
-                    <h1 id="toDoList"> To-Do List</h1>
                 <div id="movie-grid">
                     
                     <!-- Jquery get us the movie posters! Need a place to put the poster images -->
@@ -21,4 +20,4 @@
 
 	</jsp:body>
 
-</t:homepage>
+</t:to-do-page>
