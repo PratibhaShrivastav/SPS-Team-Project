@@ -42,7 +42,7 @@ $(document).ready(function() {
           // nowPlayingHTML += '<div class="genre">Genre: '+genre+'</div><br>';
           nowPlayingHTML += '<div class="overview">' + overview + '</div><br>'; // Put overview in a separate div to make it easier to style
           nowPlayingHTML += '<div class="rating">Rating: ' + voteAverage + '/10</div><br>';
-          nowPlayingHTML += '<button type="button" onclick="alert(\'You have binged it!\')">Binged It!</button>';
+          nowPlayingHTML += '<button  id = "btn 1 ' + data.id + '" type="button" onclick="return markCompleted(1,' + data.id + ')">Binged It!</button>';
           nowPlayingHTML += '</div>'; //close movieDetails
           nowPlayingHTML += '</div>'; //close modal-content
           nowPlayingHTML += '</div>'; //close modal-dialog
@@ -71,5 +71,30 @@ $(document).ready(function() {
     });
   }
 
+
   getToDoPage();
 });
+
+function markCompleted (entityType, entityID) {
+    var form = $('<form></form>');
+        form.attr("method", "post");
+        form.attr("action", "/unmark_todo");
+
+        var field1 = $('<input></input>');
+        field1.attr("type", "hidden");
+        field1.attr("name", "EntityType");
+        field1.attr("value", entityType);
+        form.append(field1);
+        var field2 = $('<input></input>');
+        field2.attr("type", "hidden");
+        field2.attr("name", "EntityID");
+        field2.attr("value", entityID);
+        form.append(field2);
+        console.log(form);
+
+        $(document.body).append(form);
+        form.submit();
+
+        document.getElementById("btn "+ entityType + " " + entityID).disabled = true;
+        return false;
+}
