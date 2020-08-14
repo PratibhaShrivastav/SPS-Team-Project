@@ -52,7 +52,7 @@ $(document).ready(function() {
         codeHTML += '<div class="release">Release Date: ' + releaseDate + '</div><br>';
         codeHTML += '<div class="overview">' + overview + '</div><br>'; // Put overview in a separate div to make it easier to style
         codeHTML += '<div class="rating">Rating: ' + voteAverage + '/10</div><br>';
-        codeHTML += '<button type="button" onclick="addToDo(1,' + id + ')">Add to binge list</button>';
+        codeHTML += '<button id = "btn 1 ' + obj.results[i].id + '" type="button" onclick="addToDo(1,' + id + '); return false;">Add to binge list</button>';
         codeHTML += '</div>'; //close movieDetails
         codeHTML += '</div>'; //close modal-content
         codeHTML += '</div>'; //close modal-dialog
@@ -196,5 +196,7 @@ function addToDo(entityType, entityID){
 
         $(document.body).append(form);
         form.submit();
-        return false;
+        document.getElementById("btn "+ entityType + " " + entityID).disabled = true;
+
+
   }
