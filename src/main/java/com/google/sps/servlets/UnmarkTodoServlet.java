@@ -13,6 +13,9 @@ import com.google.gson.Gson;
 import com.google.sps.data.ResponseStatus;
 import com.google.appengine.api.datastore.PreparedQuery;
 import com.google.appengine.api.datastore.Query;
+import com.google.appengine.api.datastore.Query.Filter;
+import com.google.appengine.api.datastore.Query.FilterOperator;
+import com.google.appengine.api.datastore.Query.FilterPredicate;
 
 
 /* Servlet that handles removing items from todo list */
@@ -20,13 +23,17 @@ import com.google.appengine.api.datastore.Query;
 public class UnmarkTodoServlet extends HttpServlet {
 
     private static final String TODO_ENTITY = "TodoEntity";
+    private static final String EMAIL_ID_PROPERTY = "EmailID";
     private static final String ENTITY_ID_PROPERTY = "EntityID";
     private static final Gson GSON = new Gson();
 
     @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        // String emailID = request.getParameter("EmailID");
         long entityID = Integer.parseInt(request.getParameter("EntityID"));
+        // Filter propertyFilter = new FilterPredicate(EMAIL_ID_PROPERTY, FilterOperator.EQUAL, emailID);
         Query query = new Query(TODO_ENTITY);
+                        // .setFilter(propertyFilter);
         DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
         PreparedQuery results = datastore.prepare(query);
         for (Entity entity : results.asIterable()) {
@@ -38,9 +45,11 @@ public class UnmarkTodoServlet extends HttpServlet {
                 break;
             }
         }
-        ResponseStatus responseStatus = ResponseStatus.builder().status_code(HttpServletResponse.SC_OK).status_message("OK").build();
-        response.setContentType("application/json");
-        response.getWriter().write(GSON.toJson(responseStatus));
+        // ResponseStatus responseStatus = ResponseStatus.builder().status_code(HttpServletResponse.SC_OK).status_message("OK").build();
+        // response.setContentType("application/json");
+        // response.getWriter().write(GSON.toJson(responseStatus));
+
+        response.sendRedirect("/to-do.jsp");
     }
 
 }

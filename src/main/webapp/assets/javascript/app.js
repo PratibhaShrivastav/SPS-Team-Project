@@ -52,7 +52,7 @@ $(document).ready(function() {
         codeHTML += '<div class="release">Release Date: ' + releaseDate + '</div><br>';
         codeHTML += '<div class="overview">' + overview + '</div><br>'; // Put overview in a separate div to make it easier to style
         codeHTML += '<div class="rating">Rating: ' + voteAverage + '/10</div><br>';
-        codeHTML += '<button id = "btn 1 ' + obj.results[i].id + '" type="button" onclick="addToDo(1,' + id + '); return false;">Add to binge list</button>';
+        codeHTML += '<button id = "btn 1 ' + obj.results[i].id + '" type="button" onclick="addToDo(0,' + id + '); return false;">Add to binge list</button>';
         codeHTML += '</div>'; //close movieDetails
         codeHTML += '</div>'; //close modal-content
         codeHTML += '</div>'; //close modal-dialog
@@ -178,25 +178,40 @@ $(document).ready(function() {
 //.append() is better when you want to add something dynamically, like adding a list item dynamically. (You would be adding a new string of HTML to the element.)
 
 function addToDo(entityType, entityID){
-        var form = $('<form></form>');
-        form.attr("method", "post");
-        form.attr("action", "/mark_todo");
+    var auth2 = gapi.auth2.getAuthInstance();
+    console.log(entityType, entityID, auth2.isSignedIn.get());
+    
+    if (auth2.isSignedIn.get() == false) {
+        alert("Sign in to use todo list.");
+        return;
+    }
 
-        var field1 = $('<input></input>');
-        field1.attr("type", "hidden");
-        field1.attr("name", "EntityType");
-        field1.attr("value", entityType);
-        form.append(field1);
-        var field2 = $('<input></input>');
-        field2.attr("type", "hidden");
-        field2.attr("name", "EntityID");
-        field2.attr("value", entityID);
-        form.append(field2);
-        console.log(form);
+    var googleUser = auth2.currentUser.get();
+    var profile = googleUser.getBasicProfile();
+    var emailID = profile.getEmail();
 
-        $(document.body).append(form);
-        form.submit();
-        document.getElementById("btn "+ entityType + " " + entityID).disabled = true;
+    var form = $('<form></form>');
+    form.attr("method", "post");
+    form.attr("action", "/mark_todo");
 
+    var field0 = $('<input></input>');
+    field0.attr("type", "hidden");
+    field0.attr("name", "EmailID");
+    field0.attr("value", emailID);
+    form.append(field0);
+    var field1 = $('<input></input>');
+    field1.attr("type", "hidden");
+    field1.attr("name", "EntityType");
+    field1.attr("value", entityType);
+    form.append(field1);
+    var field2 = $('<input></input>');
+    field2.attr("type", "hidden");
+    field2.attr("name", "EntityID");
+    field2.attr("value", entityID);
+    form.append(field2);
+    console.log(form);
 
-  }
+    $(document.body).append(form);
+    form.submit();
+    document.getElementById("btn "+ entityType + " " + entityID).disabled = true;
+}

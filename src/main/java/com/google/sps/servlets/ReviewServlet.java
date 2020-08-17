@@ -16,6 +16,7 @@ import com.google.sps.data.ResponseStatus;
 public class ReviewServlet extends HttpServlet {
 
     private static final String REVIEW_ENTITY = "ReviewEntity";
+    private static final String EMAIL_ID_PROPERTY = "EmailID";
     private static final String ENTITY_TYPE_PROPERTY = "EntityType";
     private static final String ENTITY_ID_PROPERTY = "EntityID";
     private static final String ENTITY_RATING_PROPERTY = "Rating";
@@ -25,6 +26,7 @@ public class ReviewServlet extends HttpServlet {
 
     @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        String emailID = request.getParameter("EmailID");
         long entityID = Integer.parseInt(request.getParameter("EntityID"));
         int entityType = Integer.parseInt(request.getParameter("EntityType"));
         long timestamp = System.currentTimeMillis();
@@ -32,6 +34,7 @@ public class ReviewServlet extends HttpServlet {
         String comment = request.getParameter("Comment");
 
         Entity reviewEntity = new Entity(REVIEW_ENTITY);
+        reviewEntity.setProperty(EMAIL_ID_PROPERTY, emailID);
         reviewEntity.setProperty(ENTITY_TYPE_PROPERTY, entityType);
         reviewEntity.setProperty(ENTITY_ID_PROPERTY, entityID);
         reviewEntity.setProperty(TIMESTAMP_PROPERTY, timestamp);
