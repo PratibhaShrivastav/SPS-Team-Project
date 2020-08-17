@@ -81,10 +81,10 @@ $(document).ready(function() {
 
         if (inToDoList(1, id)) {
             console.log("in to do");
-            codeHTML += '<button id = "btn 1 ' + id + '" type="button" onclick="alert("Already added to your to-do list");">Add to binge list</button>';
+            codeHTML += '<button id = "btn '+ entityType + ' ' + id + '" type="button" onclick="alert("Already added to your to-do list");">Add to binge list</button>';
         } else {
             console.log("not in to do");
-            codeHTML += '<button id = "btn 1 ' + id + '" type="button" onclick="addToDo(' + entityType + ',' + id + ');">Add to binge list</button>';
+            codeHTML += '<button id = "btn ' + entityType + ' ' + id + '" type="button" onclick="addToDo(' + entityType + ',' + id + ');">Add to binge list</button>';
         }
         codeHTML += '</div>'; //close movieDetails
         codeHTML += '</div>'; //close modal-content
@@ -94,7 +94,7 @@ $(document).ready(function() {
         return codeHTML;
     }
 
-    function getDataFromJson(url, title, entity, divGrid) {
+    function getDataFromJson(url, title, entity, divGrid, entityType) {
         fetch(url).then(response => response.json()).then((data) => {
             console.log(data);
             $(divGrid).append(title);
@@ -106,7 +106,7 @@ $(document).ready(function() {
                 //     $(divGrid).append(codeHTML);
                 // });
 
-                var codeHTML = getModalCode(data, i, entity);
+                var codeHTML = getModalCode(data, i, entityType);
                 $(divGrid).append(codeHTML);
             }
         });
@@ -115,12 +115,12 @@ $(document).ready(function() {
 
     function getTrendingMovieData(divGrid) {
         var titleTrending = '<h1 class="movieGenreLabel">Trending Movies</h1>';
-        getDataFromJson(movieUrl, titleTrending, "movie/", divGrid);
+        getDataFromJson(movieUrl, titleTrending, "movie/", divGrid, 1);
     }
 
     function getTrendingShowData(divGrid) {
         var titleTrending = '<h1 class="movieGenreLabel">Trending Shows</h1>';
-        getDataFromJson(showUrl, titleTrending, "tv/", divGrid);
+        getDataFromJson(showUrl, titleTrending, "tv/", divGrid, 2);
     }
 
     function getByGenre(genre_id, genre) {
