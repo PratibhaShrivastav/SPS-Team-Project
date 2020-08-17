@@ -12,12 +12,15 @@ img {
 }
 
 .movieGenreLabel{
-margin-bottom: 10px;
-margin-left: 15px;
-text-align: left;
+margin-bottom: 20px;
+margin-top: 20px;
+margin-left: 5px;
+margin-right: 5px;
+text-align: center;
 color: white;
-font-size: 24px;
+font-size: 30px;
 text-shadow: 2px 2px 4px #a20909;
+background-color: #222; 
 }
 
 /* search movie */
@@ -112,5 +115,9 @@ button.btnModal{
     background: #a20909;
     border-style: solid;
     height:50px;
+}
+
+.row {
+    background-color: red;
 }
 

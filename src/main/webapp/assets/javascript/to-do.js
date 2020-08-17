@@ -70,8 +70,6 @@ $(document).ready(function() {
         }
     });
   }
-
-
   getToDoPage();
 });
 

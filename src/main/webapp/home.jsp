@@ -70,19 +70,34 @@
 	<div id="movie-display">
 	<div class="container">
 		<div class="row">
-			<div id="trend-grid">
+			<div id="movie-grid">
             </div>
-	</div>
-    <div class="row">
-        <div id="movie-grid">	
-				<!-- Jquery get us the movie posters! Need a place to put the poster images -->
-		</div>
-    </div>
-    <div class="row">
-        <div id="search-grid">	
-				<!-- Jquery get us the movie posters! Need a place to put the poster images -->
-		</div>
-    </div>
+        </div>
+        <div class="row">
+            <div id="show-grid">	
+                    <!-- Jquery get us the movie posters! Need a place to put the poster images -->
+            </div>
+        </div>
+        <div class="row">
+            <div id="book-grid">	
+                    <!-- Jquery get us the movie posters! Need a place to put the poster images -->
+            </div>
+        </div>
+        <div class="row">
+            <div id="search-movie-grid">	
+                    <!-- Jquery get us the movie posters! Need a place to put the poster images -->
+            </div>
+        </div>
+        <div class="row">
+            <div id="search-show-grid">	
+                    <!-- Jquery get us the movie posters! Need a place to put the poster images -->
+            </div>
+        </div>
+        <div class="row">
+            <div id="search-books-grid">	
+                    <!-- Jquery get us the movie posters! Need a place to put the poster images -->
+            </div>
+        </div>
 	</div>
 	</jsp:body>
 </t:home-page>
