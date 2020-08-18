@@ -41,6 +41,7 @@ public class UnmarkTodoServlet extends HttpServlet {
         ResponseStatus responseStatus = ResponseStatus.builder().status_code(HttpServletResponse.SC_OK).status_message("OK").build();
         response.setContentType("application/json");
         response.getWriter().write(GSON.toJson(responseStatus));
+        response.sendRedirect("/to-do.jsp");  
     }
 
 }
