@@ -21,17 +21,20 @@ public class UnmarkTodoServlet extends HttpServlet {
 
     private static final String TODO_ENTITY = "TodoEntity";
     private static final String ENTITY_ID_PROPERTY = "EntityID";
+    private static final String ENTITY_TYPE_PROPERTY = "EntityType";
     private static final Gson GSON = new Gson();
 
     @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         long entityID = Integer.parseInt(request.getParameter("EntityID"));
+        long entityType = Integer.parseInt(request.getParameter("EntityType"));
         Query query = new Query(TODO_ENTITY);
         DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
         PreparedQuery results = datastore.prepare(query);
         for (Entity entity : results.asIterable()) {
             long ID = (long)entity.getProperty(ENTITY_ID_PROPERTY);
-            if (ID == entityID)
+            long type = (long)entity.getProperty(ENTITY_TYPE_PROPERTY);
+            if ((ID == entityID) && (type == entityType))
             {
                 Key entityKey = entity.getKey();
                 datastore.delete(entityKey);
@@ -40,8 +43,7 @@ public class UnmarkTodoServlet extends HttpServlet {
         }
         ResponseStatus responseStatus = ResponseStatus.builder().status_code(HttpServletResponse.SC_OK).status_message("OK").build();
         response.setContentType("application/json");
-        response.getWriter().write(GSON.toJson(responseStatus));
-        response.sendRedirect("/to-do.jsp");  
+        response.getWriter().write(GSON.toJson(responseStatus));  
     }
 
 }
