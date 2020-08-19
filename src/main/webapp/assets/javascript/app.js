@@ -235,23 +235,35 @@ $(document).ready(function() {
 //.append() is better when you want to add something dynamically, like adding a list item dynamically. (You would be adding a new string of HTML to the element.)
 
 function addToDo(entityType, entityID) {
-    var form = $('<form></form>');
-    form.attr("method", "post");
-    form.attr("action", "/mark_todo");
+  $.ajax({
+      url: '/mark_todo',
+      type: 'POST',
+      data: {EntityType: entityType, EntityID: entityID},
+      success: function(data){
+        if (data.status_code == 201){
+            alert("Item added to bingelist!");
+        }
+        else{
+            alert("Item couldn't be added to bingelist!");
+        }
+      }
+  });
+  document.getElementById("btn "+ entityType + " " + entityID).disabled = true;
+}
 
-    var field1 = $('<input></input>');
-    field1.attr("type", "hidden");
-    field1.attr("name", "EntityType");
-    field1.attr("value", entityType);
-    form.append(field1);
-    var field2 = $('<input></input>');
-    field2.attr("type", "hidden");
-    field2.attr("name", "EntityID");
-    field2.attr("value", entityID);
-    form.append(field2);
-    console.log(form);
-
-    $(document.body).append(form);
-    form.submit();
-    document.getElementById("btn " + entityType + " " + entityID).disabled = true;
+function removeFromTodo(entityType, entityID) {
+  $.ajax({
+      url: '/unmark_todo',
+      type: 'POST',
+      data: {EntityType: entityType, EntityID: entityID},
+      success: function(data){
+        if (data.status_code == 200){
+            alert("Item removed from bingelist!");
+        }
+        else{
+            alert("Item couldn't be removed from bingelist!");
+        }
+      }
+  });
+  document.getElementById("btn "+ entityType + " " + entityID).disabled = true;
 }
