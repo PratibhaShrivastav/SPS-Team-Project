@@ -250,20 +250,3 @@ function addToDo(entityType, entityID) {
   });
   document.getElementById("btn "+ entityType + " " + entityID).disabled = true;
 }
-
-function removeFromTodo(entityType, entityID) {
-  $.ajax({
-      url: '/unmark_todo',
-      type: 'POST',
-      data: {EntityType: entityType, EntityID: entityID},
-      success: function(data){
-        if (data.status_code == 200){
-            alert("Item removed from bingelist!");
-        }
-        else{
-            alert("Item couldn't be removed from bingelist!");
-        }
-      }
-  });
-  document.getElementById("btn "+ entityType + " " + entityID).disabled = true;
-}
