@@ -5,5 +5,4 @@ import lombok.Builder;
 public final class ResponseStatus{
     private final int status_code;
     private final String status_message;
-
 }
