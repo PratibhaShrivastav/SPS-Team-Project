@@ -56,10 +56,16 @@ $(document).ready(function() {
     function getModalCode(obj, i, entityType) {
         var id = obj.results[i].id;
         var poster = imageBaseUrl + 'w300' + obj.results[i].poster_path;
-        var title = obj.results[i].original_title;
-        // var youtubeKey = movieKey.results[0].key;
-        // var youtubeLink = 'https://www.youtube.com/watch?v=' + youtubeKey;
-        var releaseDate = obj.results[i].release_date;
+        var title;
+        if(entityType==1)
+            title = obj.results[i].original_title;
+        else if(entityType==2)
+            title = obj.results[i].name;
+        var releaseDate;
+        if(entityType==1)
+            releaseDate = obj.results[i].release_date;
+        else if(entityType==2)
+            releaseDate = obj.results[i].first_air_date;
         var overview = obj.results[i].overview;
         var voteAverage = obj.results[i].vote_average;
         var codeHTML = '';
@@ -105,9 +111,10 @@ $(document).ready(function() {
                 //     var codeHTML = getModalCode(data, i, "movieKey");
                 //     $(divGrid).append(codeHTML);
                 // });
-
-                var codeHTML = getModalCode(data, i, entityType);
-                $(divGrid).append(codeHTML);
+                if(data.results[i].poster_path.match(/\.(jpeg|jpg|gif|png)$/) != null) {
+                    var codeHTML = getModalCode(data, i, entityType);
+                    $(divGrid).append(codeHTML);
+                }
             }
         });
     }
