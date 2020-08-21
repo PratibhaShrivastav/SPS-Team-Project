@@ -74,25 +74,19 @@ $(document).ready(function() {
 });
 
 function markCompleted (entityType, entityID) {
-    var form = $('<form></form>');
-        form.attr("method", "post");
-        form.attr("action", "/unmark_todo");
+    $.ajax({
+      url: '/unmark_todo',
+      type: 'POST',
+      data: {EntityType: entityType, EntityID: entityID},
+      success: function(data){
+        if (data.status_code == 200){
+            alert("Item removed from bingelist!");
+        }
+        else{
+            alert("Item couldn't be removed from bingelist!");
+        }
+      }
+    });
 
-        var field1 = $('<input></input>');
-        field1.attr("type", "hidden");
-        field1.attr("name", "EntityType");
-        field1.attr("value", entityType);
-        form.append(field1);
-        var field2 = $('<input></input>');
-        field2.attr("type", "hidden");
-        field2.attr("name", "EntityID");
-        field2.attr("value", entityID);
-        form.append(field2);
-        console.log(form);
-
-        $(document.body).append(form);
-        form.submit();
-
-        document.getElementById("btn "+ entityType + " " + entityID).disabled = true;
-        return false;
+    document.getElementById("btn "+ entityType + " " + entityID).disabled = true;
 }
