@@ -17,6 +17,7 @@ $(document).ready(function() {
 		// console.log(i);
 		// console.log(thisMovieUrl)
 		// console.log(movieKey)
+        var id = data.id;
 		var poster = imageBaseUrl + 'w300' + data.poster_path;
 		var title;
         if(entityType==1)
@@ -31,30 +32,12 @@ $(document).ready(function() {
 		var overview = data.overview;
 		var voteAverage = data.vote_average;		
 		// console.log(youtubeLink)
-		var nowPlayingHTML = '';
-		// added in i (looping through the results) to nowPlayingHTML. Without it, only the details for the first movie in the results display in the modal no matter which movie poster you click on.
-		nowPlayingHTML += '<div class="col-sm-3 eachMovie">';
-		nowPlayingHTML += '<button type="button" class="btnModal" data-toggle="modal" data-target="#exampleModal' + data.id + '" data-whatever="@' + data.id + '">' + '<img src="' + poster + '"></button>';
-		nowPlayingHTML += '<div class="modal fade" id="exampleModal' + data.id + '" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">';
-		nowPlayingHTML += '<div class="modal-dialog" role="document">';
-		nowPlayingHTML += '<div class="modal-content col-sm-12">';
-		nowPlayingHTML += '<div class="col-sm-6 moviePosterInModal">';
-		nowPlayingHTML += '<img src="' + poster + '">';
-		nowPlayingHTML += '</div><br>'; //close trailerLink
-		nowPlayingHTML += '<div class="col-sm-6 movieDetails">';
-		nowPlayingHTML += '<div class="movieName">' + title + '</div><br>';
-		nowPlayingHTML += '<div class="release">Release Date: ' + releaseDate + '</div><br>';
-		// nowPlayingHTML += '<div class="genre">Genre: '+genre+'</div><br>';
-		nowPlayingHTML += '<div class="overview">' + overview + '</div><br>'; // Put overview in a separate div to make it easier to style
-		nowPlayingHTML += '<div class="rating">Rating: ' + voteAverage + '/10</div><br>';
-		nowPlayingHTML += '<button  id = "btn 1 ' + data.id + '" type="button" onclick="return markCompleted('+ entityType + ',' + data.id + ')">Binged It!</button>';
-		nowPlayingHTML += '</div>'; //close movieDetails
-		nowPlayingHTML += '</div>'; //close modal-content
-		nowPlayingHTML += '</div>'; //close modal-dialog
-		nowPlayingHTML += '</div>'; //close modal
-		nowPlayingHTML += '</div>'; //close off each div
+		var codeHTML = '';
 
-		return nowPlayingHTML;
+        codeHTML += `<div class="col-sm-3 eachMovie"><button type="button" class="btnModal" data-toggle="modal" data-target="#exampleModal${id}" data-whatever="@${id}"><img src="${poster}"></button><div class="modal fade" id="exampleModal${id}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true"><div class="modal-dialog" role="document">`;
+        codeHTML += `<div class="modal-content col-sm-12"><div class="col-sm-6 moviePosterInModal"><img src="${poster}"></div><br><div class="col-sm-6 movieDetails"><div class="movieName">${title}</div><br><div class="release">Release Date: ${releaseDate}</div><br><div class="overview">${overview}</div><br><div class="rating">Rating: ${voteAverage}/10</div><br>`;
+        codeHTML += `<button  id = "btn ${entityType} ${id}" type="button" onclick="return markCompleted(${entityType},${id})">Binged It!</button></div></div></div></div></div>`;
+        return codeHTML;
 	}
 
 	// function getMovie(entityID) {

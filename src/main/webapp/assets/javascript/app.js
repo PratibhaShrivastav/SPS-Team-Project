@@ -69,34 +69,17 @@ $(document).ready(function() {
         var overview = obj.results[i].overview;
         var voteAverage = obj.results[i].vote_average;
         var codeHTML = '';
-        codeHTML += '<div class="col-sm-3 eachMovie">';
-        codeHTML += '<button type="button" class="btnModal" data-toggle="modal" data-target="#exampleModal' + obj.results[i].id + '" data-whatever="@' + obj.results[i].id + '">' + '<img src="' + poster + '"></button>';
-        codeHTML += '<div class="modal fade" id="exampleModal' + obj.results[i].id + '" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">';
-        codeHTML += '<div class="modal-dialog" role="document">';
-        codeHTML += '<div class="modal-content col-sm-12">';
-        codeHTML += '<div class="col-sm-6 moviePosterInModal">';
-        // codeHTML += '<a href="' + youtubeLink + '"><img src="' + poster + '"></a>';
-        codeHTML += '<img src="' + poster + '">';
-        codeHTML += '</div><br>'; //close trailerLink
-        codeHTML += '<div class="col-sm-6 movieDetails">';
-        codeHTML += '<div class="movieName">' + title + '</div><br>';
-        // codeHTML += '<div class="linkToTrailer"><a href="' + youtubeLink + '"><span class="glyphicon glyphicon-play"></span>&nbspPlay trailer</a>' + '</div><br>';
-        codeHTML += '<div class="release">Release Date: ' + releaseDate + '</div><br>';
-        codeHTML += '<div class="overview">' + overview + '</div><br>'; // Put overview in a separate div to make it easier to style
-        codeHTML += '<div class="rating">Rating: ' + voteAverage + '/10</div><br>';
 
+        codeHTML += `<div class="col-sm-3 eachMovie"><button type="button" class="btnModal" data-toggle="modal" data-target="#exampleModal${id}" data-whatever="@${id}"><img src="${poster}"></button><div class="modal fade" id="exampleModal${id}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true"><div class="modal-dialog" role="document">`;
+        codeHTML += `<div class="modal-content col-sm-12"><div class="col-sm-6 moviePosterInModal"><img src="${poster}"></div><br><div class="col-sm-6 movieDetails"><div class="movieName">${title}</div><br><div class="release">Release Date: ${releaseDate}</div><br><div class="overview">${overview}</div><br><div class="rating">Rating: ${voteAverage}/10</div><br>`;
         if (inToDoList(1, id)) {
             console.log("in to do");
-            codeHTML += '<button id = "btn '+ entityType + ' ' + id + '" type="button" onclick="alert("Already added to your to-do list");">Add to binge list</button>';
+            codeHTML += `<button id = "btn ${entityType} ${id} " type="button" onclick="alert("Already added to your to-do list");">Add to binge list</button>`;
         } else {
             console.log("not in to do");
-            codeHTML += '<button id = "btn ' + entityType + ' ' + id + '" type="button" onclick="addToDo(' + entityType + ',' + id + ');">Add to binge list</button>';
+            codeHTML += `<button id = "btn ${entityType} ${id} " type="button" onclick="addToDo(${entityType}, ${id});">Add to binge list</button>`;
         }
-        codeHTML += '</div>'; //close movieDetails
-        codeHTML += '</div>'; //close modal-content
-        codeHTML += '</div>'; //close modal-dialog
-        codeHTML += '</div>'; //close modal
-        codeHTML += '</div>'; //close off each div
+        codeHTML += '</div></div></div></div></div>';
         return codeHTML;
     }
 
