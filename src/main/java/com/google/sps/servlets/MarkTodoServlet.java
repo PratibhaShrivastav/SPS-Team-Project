@@ -6,7 +6,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import javax.servlet.RequestDispatcher;
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.appengine.api.datastore.Entity;
@@ -72,7 +71,6 @@ public class MarkTodoServlet extends HttpServlet {
             
         response.setContentType("application/json");
         response.getWriter().write(GSON.toJson(responseStatus));
-
     }
 
 }
