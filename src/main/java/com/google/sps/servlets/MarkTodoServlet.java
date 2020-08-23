@@ -44,7 +44,6 @@ public class MarkTodoServlet extends HttpServlet {
         ResponseStatus responseStatus = ResponseStatus.builder().status_code(HttpServletResponse.SC_CREATED).status_message("Created").build();
         response.setContentType("application/json");
         response.getWriter().write(GSON.toJson(responseStatus));
-        response.sendRedirect("/home.jsp");  
     }
 
 }

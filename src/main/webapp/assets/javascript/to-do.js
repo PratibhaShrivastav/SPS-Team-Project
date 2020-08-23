@@ -40,23 +40,6 @@ $(document).ready(function() {
         return codeHTML;
 	}
 
-	// function getMovie(entityID) {
-	// 	var thisMovieUrl = apiBaseURL + 'movie/' + entityID + '/videos?api_key=' + apiKey;
-	// 	var movieKeyID;
-	// 	fetch(thisMovieUrl).then(response => response.json()).then((movieKey) => {
-	// 		movieKeyID = movieKey.results[0].key;
-	// 	})
-	// 	var movieLink = apiBaseURL + 'movie/' + entityID + '?api_key=' + apiKey;
-	// 	fetch(movieLink).then(response => response.json()).then((data) => {
-	// 		var codeHTML = getDataFromJson(data, movieKeyID, 1);
-	// 		$('#movie-grid').append(codeHTML);
-	// 	})
-	// }
-
-    // function getShow(entityID){
-        
-    // }
-
 	function getEntity(entityType, entityID) {
 		var url;
         switch (entityType) {
