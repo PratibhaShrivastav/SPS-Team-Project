@@ -42,7 +42,7 @@ public class TodoListServlet extends HttpServlet {
         results.asIterable().forEach(entity -> {
             BaseEntity baseEntityObj = BaseEntity.builder()
                 .user((String)entity.getProperty(PROFILE_ID_PROPERTY))
-                .id((long)entity.getProperty(ENTITY_ID_PROPERTY))
+                .id((String)entity.getProperty(ENTITY_ID_PROPERTY))
                 .type((long)entity.getProperty(ENTITY_TYPE_PROPERTY))
                 .build();
             todo_list.add(baseEntityObj);

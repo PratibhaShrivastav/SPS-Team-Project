@@ -40,26 +40,51 @@ $(document).ready(function() {
         return codeHTML;
 	}
 
+    function getBookModalCode (obj, entityType) {
+        var id = obj.id;
+        var poster = obj.volumeInfo.imageLinks.thumbnail;
+        var title = obj.volumeInfo.title;
+        var releaseDate = obj.volumeInfo.publishedDate;
+        var overview = obj.volumeInfo.description;
+        var codeHTML = '';
+
+        var codeHTML = '';
+
+        codeHTML += `<div class="col-sm-3 eachMovie"><button type="button" class="btnModal" data-toggle="modal" data-target="#exampleModal${id}" data-whatever="@${id}"><img src="${poster}"></button><div class="modal fade" id="exampleModal${id}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true"><div class="modal-dialog" role="document">`;
+        codeHTML += `<div class="modal-content col-sm-12"><div class="col-sm-6 moviePosterInModal"><img src="${poster}"></div><br><div class="col-sm-6 movieDetails"><div class="movieName">${title}</div><br><div class="release">Release Date: ${releaseDate}</div><br><div class="overview">${overview}</div><br>`;
+        codeHTML += `<button id = "btn ${entityType} ${id}" type="button" onclick="return markCompleted(${entityType},\'`+ `${id}` + `\');">Add to binge list</button>`;
+        codeHTML += '</div></div></div></div></div>';
+        return codeHTML;
+
+
+    }
+
 	function getEntity(entityType, entityID) {
 		var url;
         switch (entityType) {
 			case 1:
 				url = apiBaseURL + 'movie/' + entityID + '?api_key=' + apiKey;
+                fetch(url).then(response => response.json()).then((data) => {
+			        var codeHTML = getDataFromJson(data, entityType);
+			        $('#movie-grid').append(codeHTML);
+		        });
 				break;
 			case 2:
-				url = url = apiBaseURL + 'tv/' + entityID + '?api_key=' + apiKey;
+				url = apiBaseURL + 'tv/' + entityID + '?api_key=' + apiKey;
+                fetch(url).then(response => response.json()).then((data) => {
+			        var codeHTML = getDataFromJson(data, entityType);
+			        $('#movie-grid').append(codeHTML);
+		        });
 				break;
 			case 3:
-				break;
-		}
-
-        fetch(url).then(response => response.json()).then((data) => {
-			var codeHTML = getDataFromJson(data, entityType);
-			$('#movie-grid').append(codeHTML);
-		})
-        
+                url = "https://www.googleapis.com/books/v1/volumes/"+entityID;
+                fetch(url).then(response => response.json()).then((data) => {
+                        var codeHTML = getBookModalCode(data, entityType);
+                        $('#movie-grid').append(codeHTML);
+                });
+                break;
+        }
 	}
-
 
 	function getToDoPage() {
 		fetch("/todo_list").then(response => response.json()).then((data) => {
@@ -70,7 +95,8 @@ $(document).ready(function() {
 			}
 		});
 	}
-	getToDoPage();
+	
+    getToDoPage();
 });
 
 function markCompleted(entityType, entityID) {
