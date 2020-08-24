@@ -79,11 +79,11 @@
                     <div id="movie-details" data-movie-id="${movie_id}">
                         <div class="article">
                             <div class="col-sm-3" id="poster"></div>
-                            <div class="col-sm-6" id="details">
+                            <div class="col-sm-9" id="details">
                                 <div id="movieName"></div>
                                 <div id="buttons">
-                                    <div class="col-sm-6" id="linkToTrailer"></div>
-                                    <div class="col-sm-6" id="changeTodoStatus"></div><br><br>
+                                    <center><div class="col-sm-6" id="linkToTrailer"></div></center>
+                                    <center><div class="col-sm-6" id="changeTodoStatus"></div></center><br><br>
                                 </div>
                                 <div id="release"></div><br>
                                 <div id="rating"></div><br>
