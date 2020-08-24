@@ -5,5 +5,5 @@ import lombok.Builder;
 public class BaseEntity{
     private final String user;
     private final long type;
-    private final long id;
+    private final String id;
 }

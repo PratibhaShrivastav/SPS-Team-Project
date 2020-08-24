@@ -9,6 +9,9 @@ $(document).ready(function() {
 
     const movieUrl = apiBaseURL + 'movie/now_playing?api_key=' + apiKey;
     const showUrl = apiBaseURL + 'tv/top_rated?api_key=' + apiKey;
+    const bookUrl = "https://www.googleapis.com/books/v1/volumes?q=subject:fiction";
+
+
 
     var todoListData;
 
@@ -41,6 +44,11 @@ $(document).ready(function() {
     //878 = science fiction
     //53 = thriller
 
+    function min(a, b) {
+        if( a < b )
+            return a;
+        return b;
+    }
     function inToDoList(EntityType, EntityID) {
         console.log(EntityType + " " + EntityID);
         for (let i = 0; i < todoListData.length; i++) {
@@ -56,41 +64,30 @@ $(document).ready(function() {
     function getModalCode(obj, i, entityType) {
         var id = obj.results[i].id;
         var poster = imageBaseUrl + 'w300' + obj.results[i].poster_path;
-        var title = obj.results[i].original_title;
-        // var youtubeKey = movieKey.results[0].key;
-        // var youtubeLink = 'https://www.youtube.com/watch?v=' + youtubeKey;
-        var releaseDate = obj.results[i].release_date;
+        var title;
+        if(entityType==1)
+            title = obj.results[i].original_title;
+        else if(entityType==2)
+            title = obj.results[i].name;
+        var releaseDate;
+        if(entityType==1)
+            releaseDate = obj.results[i].release_date;
+        else if(entityType==2)
+            releaseDate = obj.results[i].first_air_date;
         var overview = obj.results[i].overview;
         var voteAverage = obj.results[i].vote_average;
         var codeHTML = '';
-        codeHTML += '<div class="col-sm-3 eachMovie">';
-        codeHTML += '<button type="button" class="btnModal" data-toggle="modal" data-target="#exampleModal' + obj.results[i].id + '" data-whatever="@' + obj.results[i].id + '">' + '<img src="' + poster + '"></button>';
-        codeHTML += '<div class="modal fade" id="exampleModal' + obj.results[i].id + '" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">';
-        codeHTML += '<div class="modal-dialog" role="document">';
-        codeHTML += '<div class="modal-content col-sm-12">';
-        codeHTML += '<div class="col-sm-6 moviePosterInModal">';
-        // codeHTML += '<a href="' + youtubeLink + '"><img src="' + poster + '"></a>';
-        codeHTML += '<img src="' + poster + '">';
-        codeHTML += '</div><br>'; //close trailerLink
-        codeHTML += '<div class="col-sm-6 movieDetails">';
-        codeHTML += '<div class="movieName">' + title + '</div><br>';
-        // codeHTML += '<div class="linkToTrailer"><a href="' + youtubeLink + '"><span class="glyphicon glyphicon-play"></span>&nbspPlay trailer</a>' + '</div><br>';
-        codeHTML += '<div class="release">Release Date: ' + releaseDate + '</div><br>';
-        codeHTML += '<div class="overview">' + overview + '</div><br>'; // Put overview in a separate div to make it easier to style
-        codeHTML += '<div class="rating">Rating: ' + voteAverage + '/10</div><br>';
 
-        if (inToDoList(1, id)) {
+        codeHTML += `<div class="col-sm-3 eachMovie"><button type="button" class="btnModal" data-toggle="modal" data-target="#exampleModal${id}" data-whatever="@${id}"><img src="${poster}"></button><div class="modal fade" id="exampleModal${id}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true"><div class="modal-dialog" role="document">`;
+        codeHTML += `<div class="modal-content col-sm-12"><div class="col-sm-6 moviePosterInModal"><img src="${poster}"></div><br><div class="col-sm-6 movieDetails"><div class="movieName">${title}</div><br><div class="release">Release Date: ${releaseDate}</div><br><div class="overview">${overview}</div><br><div class="rating">Rating: ${voteAverage}/10</div><br>`;
+        if (inToDoList(entityType, id)) {
             console.log("in to do");
-            codeHTML += '<button id = "btn '+ entityType + ' ' + id + '" type="button" onclick="alert("Already added to your to-do list");">Add to binge list</button>';
+            codeHTML += `<button id = "btn ${entityType} ${id}" type="button" onclick="alert("Already added to your to-do list");">Add to binge list</button>`;
         } else {
             console.log("not in to do");
-            codeHTML += '<button id = "btn ' + entityType + ' ' + id + '" type="button" onclick="addToDo(' + entityType + ',' + id + ');">Add to binge list</button>';
+            codeHTML += `<button id = "btn ${entityType} ${id}" type="button" onclick="addToDo(${entityType}, ${id});">Add to binge list</button>`;
         }
-        codeHTML += '</div>'; //close movieDetails
-        codeHTML += '</div>'; //close modal-content
-        codeHTML += '</div>'; //close modal-dialog
-        codeHTML += '</div>'; //close modal
-        codeHTML += '</div>'; //close off each div
+        codeHTML += '</div></div></div></div></div>';
         return codeHTML;
     }
 
@@ -105,14 +102,48 @@ $(document).ready(function() {
                 //     var codeHTML = getModalCode(data, i, "movieKey");
                 //     $(divGrid).append(codeHTML);
                 // });
-
-                var codeHTML = getModalCode(data, i, entityType);
-                $(divGrid).append(codeHTML);
+                if(data.results[i].poster_path.match(/\.(jpeg|jpg|gif|png)$/) != null) {
+                    var codeHTML = getModalCode(data, i, entityType);
+                    $(divGrid).append(codeHTML);
+                }
             }
         });
     }
 
+    function getBookModalCode (obj, entityType) {
+        var id = obj.id;
+        var poster = obj.volumeInfo.imageLinks.thumbnail;
+        var title = obj.volumeInfo.title;
+        var releaseDate = obj.volumeInfo.publishedDate;
+        var overview = obj.volumeInfo.description;
+        var codeHTML = '';
 
+        var codeHTML = '';
+
+        codeHTML += `<div class="col-sm-3 eachMovie"><button type="button" class="btnModal" data-toggle="modal" data-target="#exampleModal${id}" data-whatever="@${id}"><img src="${poster}"></button><div class="modal fade" id="exampleModal${id}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true"><div class="modal-dialog" role="document">`;
+        codeHTML += `<div class="modal-content col-sm-12"><div class="col-sm-6 moviePosterInModal"><img src="${poster}"></div><br><div class="col-sm-6 movieDetails"><div class="movieName">${title}</div><br><div class="release">Release Date: ${releaseDate}</div><br><div class="overview">${overview}</div><br>`;
+        if (inToDoList(3, id)) {
+            console.log("in to do");
+            codeHTML += `<button id = "btn ${entityType} ${id}" type="button" onclick="alert("Already added to your to-do list");">Add to binge list</button>`;
+        } else {
+            console.log("not in to do");
+            codeHTML += `<button id = "btn ${entityType} ${id}" type="button" onclick="addToDo(${entityType},\'`+ `${id}` + `\');">Add to binge list</button>`;
+        }
+        codeHTML += '</div></div></div></div></div>';
+        return codeHTML;
+
+
+    }
+    function getBookDataFromJson (url, title, divGrid, entityType) {
+        fetch(url).then(response => response.json()).then((data) => {
+            console.log(data);
+            $(divGrid).append(title);
+            for (let i = 0; i < data.items.length; i++) {
+                var codeHTML = getBookModalCode(data.items[i], entityType);
+                $(divGrid).append(codeHTML);
+            }
+        });
+    }
     function getTrendingMovieData(divGrid) {
         var titleTrending = '<h1 class="movieGenreLabel">Trending Movies</h1>';
         getDataFromJson(movieUrl, titleTrending, "movie/", divGrid, 1);
@@ -123,29 +154,41 @@ $(document).ready(function() {
         getDataFromJson(showUrl, titleTrending, "tv/", divGrid, 2);
     }
 
+    function getTrendingBookData (divGrid) {
+        var titleTrending =  '<h1 class="movieGenreLabel">Trending Books</h1>';
+        getBookDataFromJson(bookUrl, titleTrending, divGrid, 3);
+    }
+
     function getByGenre(genre_id, genre) {
         clearPage();
         getMoviesByGenre(genre_id, genre);
         getShowsByGenre(genre_id, genre);
+        getBooksByGenre(genre);
     }
 
     function getMoviesByGenre(genre_id, genre) {
         const getMoviesByGenreURL = apiBaseURL + 'genre/' + genre_id + '/movies?api_key=' + apiKey + '&language=en-US&include_adult=false&sort_by=created_at.asc';
         const titleGenre = '<h1 class="movieGenreLabel">"' + genre + '" in Movies</h1>';
-        getDataFromJson(getMoviesByGenreURL, titleGenre, "/movie", "#search-movie-grid");
+        getDataFromJson(getMoviesByGenreURL, titleGenre, "/movie", "#search-movie-grid", 1);
     }
 
     function getShowsByGenre(genre_id, genre) {
         const getShowsByGenreURL = apiBaseURL + 'discover/tv?api_key=' + apiKey + '&language=en-US&sort_by=first_air_date.asc&with_genres=' + genre_id;
         const titleGenre = '<h1 class="movieGenreLabel">"' + genre + '" in Shows</h1>';
-        getDataFromJson(getShowsByGenreURL, titleGenre, "/tv", "#search-show-grid");
+        getDataFromJson(getShowsByGenreURL, titleGenre, "/tv", "#search-show-grid", 2);
+    }
+    
+    function getBooksByGenre(genre) {
+        const titleGenre = '<h1 class="movieGenreLabel">"' + genre + '" in Books</h1>';
+        const getBooksByGenreUrl = "https://www.googleapis.com/books/v1/volumes?q=subject:"+genre;
+        getBookDataFromJson(getBooksByGenreUrl, titleGenre, "#search-book-grid", 3);
     }
 
     function getHomePage() {
         clearPage();
         getTrendingMovieData("#movie-grid");
         getTrendingShowData("#show-grid");
-        // getTrendingBookData("#book-grid");
+        getTrendingBookData("#book-grid");
     }
 
     function clearPage() {
@@ -212,6 +255,7 @@ $(document).ready(function() {
         searchTerm = $('.form-control').val();
         searchMovies();
         searchShows();
+        searchBooks();
     });
 
     function searchMovies() {
@@ -226,7 +270,13 @@ $(document).ready(function() {
         getDataFromJson(searchShowURL, searchedTerm, "/tv", "#search-show-grid");
     }
 
+    function searchBooks() {
+        const searchBookURL = "https://www.googleapis.com/books/v1/volumes?q=intitle:"+searchTerm;
+        var searchedTerm = '<h1 class="movieGenreLabel" >"' + searchTerm + '" in Books</h1>'
+        getBookDataFromJson(searchBookURL, searchedTerm, "#search-book-grid", 3);
+    }
 });
+
 
 //.append(nowPlayingHTML) adds nowPlayingHTML to the present HTML
 //.html(nowPlayingHTML) ovwrwrites the HTML present with nowPlayingHTML.

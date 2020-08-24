@@ -29,7 +29,8 @@ public class MarkTodoServlet extends HttpServlet {
         HttpSession session = request.getSession();
         String profileID = (String)session.getAttribute("profileID");
         int entityType = Integer.parseInt(request.getParameter("EntityType"));
-        long entityID = Integer.parseInt(request.getParameter("EntityID"));
+        //long entityID = Integer.parseInt(request.getParameter("EntityID"));
+        String entityID = String.valueOf(request.getParameter("EntityID"));
         long timestamp = System.currentTimeMillis();
 
         Entity todoEntity = new Entity(TODO_ENTITY);
