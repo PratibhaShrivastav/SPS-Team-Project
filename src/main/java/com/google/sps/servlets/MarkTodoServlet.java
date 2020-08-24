@@ -35,8 +35,7 @@ public class MarkTodoServlet extends HttpServlet {
         HttpSession session = request.getSession();
         String profileID = (String)session.getAttribute("profileID");
         int entityType = Integer.parseInt(request.getParameter("EntityType"));
-        //long entityID = Integer.parseInt(request.getParameter("EntityID"));
-        String entityID = String.valueOf(request.getParameter("EntityID"));
+        String entityID = request.getParameter("EntityID");
         long timestamp = System.currentTimeMillis();
         boolean isNotInTodo = true;
         ResponseStatus responseStatus;
@@ -46,9 +45,9 @@ public class MarkTodoServlet extends HttpServlet {
         DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
         PreparedQuery results = datastore.prepare(query);
         for (Entity entity : results.asIterable()) {
-            long ID = (long)entity.getProperty(ENTITY_ID_PROPERTY);
+            String ID = (String)entity.getProperty(ENTITY_ID_PROPERTY);
             long type = (long)entity.getProperty(ENTITY_TYPE_PROPERTY);
-            if ((ID == entityID) && (type == entityType))
+            if (ID.equals(entityID) && (type == entityType))
             {
                isNotInTodo = false;
                break;

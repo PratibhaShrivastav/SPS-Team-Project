@@ -33,16 +33,16 @@ public class UnmarkTodoServlet extends HttpServlet {
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         HttpSession session = request.getSession();
         String profileID = (String)session.getAttribute("profileID");
-        long entityID = Integer.parseInt(request.getParameter("EntityID"));
+        String entityID = request.getParameter("EntityID");
         long entityType = Integer.parseInt(request.getParameter("EntityType"));
         Filter propertyFilter = new FilterPredicate(PROFILE_ID_PROPERTY, FilterOperator.EQUAL, profileID);
         Query query = new Query(TODO_ENTITY).setFilter(propertyFilter);
         DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
         PreparedQuery results = datastore.prepare(query);
         for (Entity entity : results.asIterable()) {
-            long ID = (long)entity.getProperty(ENTITY_ID_PROPERTY);
+            String ID = (String)entity.getProperty(ENTITY_ID_PROPERTY);
             long type = (long)entity.getProperty(ENTITY_TYPE_PROPERTY);
-            if ((ID == entityID) && (type == entityType))
+            if ((ID.equals(entityID)) && (type == entityType))
             {
                 Key entityKey = entity.getKey();
                 datastore.delete(entityKey);
