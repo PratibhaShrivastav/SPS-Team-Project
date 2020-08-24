@@ -42,7 +42,7 @@ public class UnmarkTodoServlet extends HttpServlet {
         for (Entity entity : results.asIterable()) {
             String ID = (String)entity.getProperty(ENTITY_ID_PROPERTY);
             long type = (long)entity.getProperty(ENTITY_TYPE_PROPERTY);
-            if ((ID == entityID) && (type == entityType))
+            if ((ID.equals(entityID)) && (type == entityType))
             {
                 Key entityKey = entity.getKey();
                 datastore.delete(entityKey);
