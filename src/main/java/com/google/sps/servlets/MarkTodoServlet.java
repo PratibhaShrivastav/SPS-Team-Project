@@ -27,7 +27,7 @@ public class MarkTodoServlet extends HttpServlet {
     @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         HttpSession session = request.getSession();
-        String profileID = (String)session.getAttribute("profileID");
+        String profileID = (String)session.getAttribute("ProfileID");
         int entityType = Integer.parseInt(request.getParameter("EntityType"));
         long entityID = Integer.parseInt(request.getParameter("EntityID"));
         long timestamp = System.currentTimeMillis();

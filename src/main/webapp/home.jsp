@@ -49,6 +49,19 @@
                         </button>
                     </form>
                     <li class="icon-bar">
+                        <div class="user">
+                            <img class="user-image">
+                        </div>
+                    </li>
+                    <li>
+                        <div class="user">
+                            <div class="user-info">
+                                <p class="full-name"></p> </br>
+                                <p class="email"></p>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="icon-bar">
                         <div class="g-signin2" data-onsuccess="onSignIn" data-width="120" data-height="45"></div>
                     </li>
                     <li class="icon-bar">

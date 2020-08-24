@@ -32,7 +32,7 @@ public class UnmarkTodoServlet extends HttpServlet {
     @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         HttpSession session = request.getSession();
-        String profileID = (String)session.getAttribute("profileID");
+        String profileID = (String)session.getAttribute("ProfileID");
         long entityID = Integer.parseInt(request.getParameter("EntityID"));
         long entityType = Integer.parseInt(request.getParameter("EntityType"));
         Filter propertyFilter = new FilterPredicate(PROFILE_ID_PROPERTY, FilterOperator.EQUAL, profileID);
