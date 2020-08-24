@@ -34,14 +34,14 @@ public class UnmarkTodoServlet extends HttpServlet {
         HttpSession session = request.getSession();
         String profileID = (String)session.getAttribute("ProfileID");
         long entityID = Integer.parseInt(request.getParameter("EntityID"));
-        long entityType = Integer.parseInt(request.getParameter("EntityType"));
+        String entityID = String.valueOf(request.getParameter("EntityID"));
         Filter propertyFilter = new FilterPredicate(PROFILE_ID_PROPERTY, FilterOperator.EQUAL, profileID);
         Query query = new Query(TODO_ENTITY).setFilter(propertyFilter);
         DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
         PreparedQuery results = datastore.prepare(query);
         for (Entity entity : results.asIterable()) {
             long ID = (long)entity.getProperty(ENTITY_ID_PROPERTY);
-            long type = (long)entity.getProperty(ENTITY_TYPE_PROPERTY);
+            String type = (String)entity.getProperty(ENTITY_TYPE_PROPERTY);
             if ((ID == entityID) && (type == entityType))
             {
                 Key entityKey = entity.getKey();
