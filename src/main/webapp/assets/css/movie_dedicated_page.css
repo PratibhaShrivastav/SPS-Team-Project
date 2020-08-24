@@ -157,3 +157,14 @@ button.btnModal {
   padding-bottom: 10px;
   padding-top: 10px;
 }
+
+.orangeHeading {
+  color: #F5C518;
+  font-size: 2.125rem;
+  line-height: 2.5rem;
+  letter-spacing: .00735em;
+  text-decoration: inherit;
+  text-transform: inherit;
+  font-weight: 500;
+  -webkit-font-smoothing: auto;
+}

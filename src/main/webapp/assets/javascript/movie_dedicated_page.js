@@ -46,7 +46,7 @@ axios.get(`${API_BASE_URL}/movie/${movieId}`, {
 
   $('#movieName').html(`
     <center>
-      <h3 class="ipc-title_text">${response.data.original_title}</h3>
+      <h1 class="orangeHeading">${response.data.original_title}</h3>
     </center>
   `);
 
