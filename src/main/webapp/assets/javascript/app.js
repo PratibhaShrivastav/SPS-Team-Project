@@ -87,7 +87,11 @@ $(document).ready(function() {
             console.log("not in to do");
             codeHTML += `<button id = "btn ${entityType} ${id}" type="button" onclick="addToDo(${entityType}, ${id});">Add to binge list</button>`;
         }
-        codeHTML += `<button id = "btn 1 ${obj.results[i].id}" onclick="location.href='/movies/${obj.results[i].id}'" type="button">Show more details</button>`;
+        if (entityType == 1) {
+          codeHTML += `<button id = "btn 1 ${obj.results[i].id}" onclick="location.href='/movies/${obj.results[i].id}'" type="button">Show more details</button>`;
+        } else if (entityType == 2) {
+          codeHTML += `<button id = "btn 1 ${obj.results[i].id}" onclick="location.href='/tv_shows/${obj.results[i].id}'" type="button">Show more details</button>`;
+        }
         codeHTML += '</div></div></div></div></div>';
         return codeHTML;
     }
@@ -130,6 +134,7 @@ $(document).ready(function() {
             console.log("not in to do");
             codeHTML += `<button id = "btn ${entityType} ${id}" type="button" onclick="addToDo(${entityType},\'`+ `${id}` + `\');">Add to binge list</button>`;
         }
+        codeHTML += `<button id = "btn 1 ${entityType} ${id}" onclick="location.href='/books/${id}'" type="button">Show more details</button>`;
         codeHTML += '</div></div></div></div></div>';
         return codeHTML;
 
