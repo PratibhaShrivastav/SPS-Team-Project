@@ -60,8 +60,8 @@ public class ReviewServlet extends HttpServlet {
     @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         HttpSession session = request.getSession();
-        String profileID = (String)session.getAttribute("profileID");
-        String entityID = request.getParameter("EntityID");
+        String profileID = (String)session.getAttribute("ProfileID");
+        String entityID = String.valueOf(request.getParameter("EntityID"));
         int entityType = Integer.parseInt(request.getParameter("EntityType"));
         long timestamp = System.currentTimeMillis();
         int rating = Integer.parseInt(request.getParameter("Rating"));
