@@ -108,7 +108,7 @@
             </div>
         </div>
         <div class="row">
-            <div id="search-books-grid">	
+            <div id="search-book-grid">	
                     <!-- Jquery get us the movie posters! Need a place to put the poster images -->
             </div>
         </div>
