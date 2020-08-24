@@ -72,6 +72,29 @@ ul.dropdown-menu {
     cursor: pointer;
 }
 
+.user{
+    display: none;
+}
+
+.user-image{
+    border-radius:50%;
+    margin-right: 10px;
+    width: 45px;
+    height: 45px;
+}
+
+.user-info{
+    margin-right: 10px;
+    margin-left: 10px;
+    margin-top: 12px;
+    color: white;
+    font-size: 15px;
+}
+
+.email{
+    margin-top: 1px;
+}
+
 .signin-hide {
     display: none;
 }
