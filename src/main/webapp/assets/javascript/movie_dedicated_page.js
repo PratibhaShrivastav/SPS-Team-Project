@@ -13,6 +13,25 @@ async function getYoutubeUrl(entityType, entityId) {
   return response.data.results[0].key;
 }
 
+function addToDo(entityType, entityID){
+  var form = $("<form></form>");
+  form.attr('method', 'post');
+  form.attr('action', '/mark_todo');
+  var field1 = $('<input></input>');
+  field1.attr('type', 'hidden');
+  field1.attr('name', 'EntityType');
+  field1.attr('value', entityType);
+  form.append(field1);
+  var field2 = $('<input></input>');
+  field2.attr('type', 'hidden');
+  field2.attr('name', 'EntityID');
+  field2.attr('value', entityID);
+  form.append(field2);
+  console.log(form);
+  $(document.body).append(form);
+  form.submit();
+}
+
 let movieId = $('#movie-details').data('movie-id');
 axios.get(`${API_BASE_URL}/movie/${movieId}`, {
   params: {
@@ -34,15 +53,17 @@ axios.get(`${API_BASE_URL}/movie/${movieId}`, {
   let youtubeUrlKey = await getYoutubeUrl("movie", movieId);
   let youtubeUrl = `${YOUTUBE_WATCH_URL}${youtubeUrlKey}`;
   $('#linkToTrailer').html(`
-    <a href="${youtubeUrl}">
+    <button id = "btn btn-primary" type="button" onclick="location.href='${youtubeUrl}'">
       <span class="glyphicon glyphicon-play"></span>
       &nbspPlay trailer
-    </a>
+    </button>
   `);
 
   $('#changeTodoStatus').html(`
-    <span class="glyphicon glyphicon-plus"></span>
-    Add to todo list
+    <button id="btn btn-primary" type="button" onclick="addToDo(1, ${movieId})">
+      <span class="glyphicon glyphicon-plus"></span>
+      Add to todo list
+    </button>
   `);
 
   $('#release').html(`
