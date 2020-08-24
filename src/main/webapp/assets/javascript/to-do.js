@@ -52,7 +52,7 @@ $(document).ready(function() {
 
         codeHTML += `<div class="col-sm-3 eachMovie"><button type="button" class="btnModal" data-toggle="modal" data-target="#exampleModal${id}" data-whatever="@${id}"><img src="${poster}"></button><div class="modal fade" id="exampleModal${id}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true"><div class="modal-dialog" role="document">`;
         codeHTML += `<div class="modal-content col-sm-12"><div class="col-sm-6 moviePosterInModal"><img src="${poster}"></div><br><div class="col-sm-6 movieDetails"><div class="movieName">${title}</div><br><div class="release">Release Date: ${releaseDate}</div><br><div class="overview">${overview}</div><br>`;
-        codeHTML += `<button id = "btn ${entityType} ${id}" type="button" onclick="return markCompleted(${entityType},\'`+ `${id}` + `\');">Add to binge list</button>`;
+        codeHTML += `<button id = "btn ${entityType} ${id}" type="button" onclick="return markCompleted(${entityType},\'`+ `${id}` + `\');">Binged it!</button>`;
         codeHTML += '</div></div></div></div></div>';
         return codeHTML;
 
@@ -86,13 +86,21 @@ $(document).ready(function() {
         }
 	}
 
+    function addEmptyHeading() {
+        var emptyToDoList = '<h1 class="movieGenreLabel">You haven\'t added anything to your Binge-List yet!</h1>';
+        $('#movie-grid').append(emptyToDoList);
+    }
 	function getToDoPage() {
 		fetch("/todo_list").then(response => response.json()).then((data) => {
 			console.log(data);
-			for (let i = 0; i < data.length; i++) {
-				var dataRes = data[i].id;
-				getEntity(data[i].type, data[i].id);
-			}
+            if(data.length==0){
+                addEmptyHeading();
+            }else {
+                for (let i = 0; i < data.length; i++) {
+                    var dataRes = data[i].id;
+                    getEntity(data[i].type, data[i].id);
+                }
+            }
 		});
 	}
 	
