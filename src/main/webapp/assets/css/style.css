@@ -139,3 +139,7 @@ button.btnModal{
     border-style: solid;
     height:50px;
 }
+
+.btnModal {
+  width: 100%;
+}
