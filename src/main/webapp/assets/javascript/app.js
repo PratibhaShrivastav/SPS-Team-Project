@@ -294,7 +294,7 @@ function addToDo(entityType, entityID) {
             alert("Item added to bingelist!");
         }
         else{
-            alert("Item couldn't be added to bingelist!");
+            alert("Item already present in bingelist!");
         }
       }
   });

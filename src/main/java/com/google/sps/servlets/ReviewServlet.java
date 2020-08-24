@@ -11,6 +11,14 @@ import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.appengine.api.datastore.Entity;
 import com.google.gson.Gson;
 import com.google.sps.data.ResponseStatus;
+import com.google.sps.data.UserReview;
+import java.util.List;
+import java.util.ArrayList;
+import com.google.appengine.api.datastore.PreparedQuery;
+import com.google.appengine.api.datastore.Query;
+import com.google.appengine.api.datastore.Query.Filter;
+import com.google.appengine.api.datastore.Query.FilterOperator;
+import com.google.appengine.api.datastore.Query.FilterPredicate;
 
 /* Servlet that handles adding review and rating to entity */
 @WebServlet("/add_review")
@@ -27,10 +35,33 @@ public class ReviewServlet extends HttpServlet {
     private static final Gson GSON = new Gson();
 
     @Override
-    public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         HttpSession session = request.getSession();
         String profileID = (String)session.getAttribute("profileID");
-        long entityID = Integer.parseInt(request.getParameter("EntityID"));
+        Filter propertyFilter = new FilterPredicate(PROFILE_ID_PROPERTY, FilterOperator.EQUAL, profileID);
+        Query query = new Query(REVIEW_ENTITY).setFilter(propertyFilter);
+        DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+        PreparedQuery results = datastore.prepare(query);
+        List<UserReview> reviewList = new ArrayList<>();
+        results.asIterable().forEach(entity -> {
+            UserReview userReviewObj = UserReview.userReviewBuilder()
+                .user((String)entity.getProperty(PROFILE_ID_PROPERTY))
+                .id((String)entity.getProperty(ENTITY_ID_PROPERTY))
+                .type((long)entity.getProperty(ENTITY_TYPE_PROPERTY))
+                .rating((long)entity.getProperty(ENTITY_RATING_PROPERTY))
+                .comment((String)entity.getProperty(ENTITY_COMMENT_PROPERTY))
+                .build();
+            reviewList.add(userReviewObj);
+        });
+        response.setContentType("application/json");
+        response.getWriter().println(GSON.toJson(reviewList));
+    }
+
+    @Override
+    public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        HttpSession session = request.getSession();
+        String profileID = (String)session.getAttribute("ProfileID");
+        String entityID = String.valueOf(request.getParameter("EntityID"));
         int entityType = Integer.parseInt(request.getParameter("EntityType"));
         long timestamp = System.currentTimeMillis();
         int rating = Integer.parseInt(request.getParameter("Rating"));
