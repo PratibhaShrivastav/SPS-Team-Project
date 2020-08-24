@@ -152,3 +152,8 @@ button.btnModal {
 .navbar {
   border-radius: 0px;
 }
+
+#buttons {
+  padding-bottom: 10px;
+  padding-top: 10px;
+}
