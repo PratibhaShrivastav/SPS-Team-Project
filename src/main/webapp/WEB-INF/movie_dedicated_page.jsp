@@ -81,8 +81,10 @@
                             <div class="col-sm-3" id="poster"></div>
                             <div class="col-sm-6" id="details">
                                 <div id="movieName"></div>
-                                <div class="col-sm-6" id="linkToTrailer"></div>
-                                <div class="col-sm-6" id="changeTodoStatus"></div><br><br>
+                                <div id="buttons">
+                                    <div class="col-sm-6" id="linkToTrailer"></div>
+                                    <div class="col-sm-6" id="changeTodoStatus"></div><br><br>
+                                </div>
                                 <div id="release"></div><br>
                                 <div id="rating"></div><br>
                                 <div id="language"></div><br>
