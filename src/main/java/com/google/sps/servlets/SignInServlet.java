@@ -34,6 +34,7 @@ public class SignInServlet extends HttpServlet {
         String imageUrl = request.getParameter("ImageUrl");
         HttpSession session = request.getSession();
         session.setAttribute(PROFILE_ID_PROPERTY, profileID);
+        session.setAttribute(FULL_NAME_PROPERTY, fullName);
 
         addUser(profileID, fullName, email, imageUrl);
     }

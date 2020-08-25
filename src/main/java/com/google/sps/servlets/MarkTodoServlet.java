@@ -34,6 +34,9 @@ public class MarkTodoServlet extends HttpServlet {
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         HttpSession session = request.getSession();
         String profileID = (String)session.getAttribute("ProfileID");
+        if (profileID.equals(null)) {
+            return;
+        }
         int entityType = Integer.parseInt(request.getParameter("EntityType"));
         String entityID = String.valueOf(request.getParameter("EntityID"));
         long timestamp = System.currentTimeMillis();

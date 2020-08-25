@@ -6,8 +6,8 @@ public final class UserReview extends BaseEntity{
     private final String comment;
 
     @Builder(builderMethodName = "userReviewBuilder")
-    public UserReview(final String user, final long type, final String id, final long rating, final String comment) {
-        super(user, type, id);
+    public UserReview(final String user, final String name, final long type, final String id, final long rating, final String comment) {
+        super(user, name, type, id);
         this.rating = rating;
         this.comment = comment;
     }
