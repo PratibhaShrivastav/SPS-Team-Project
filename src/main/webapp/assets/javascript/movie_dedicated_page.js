@@ -61,8 +61,9 @@ axios.get(`${API_BASE_URL}/movie/${movieId}`, {
 
 axios.get("/add_review")
     .then((response) => {
+      console.log("Reviews: ", response);
       for (let review of response.data) {
-        if ((review.id === movieId) && (review.type === ENTITY_TYPE)) {
+        if ((review.id == movieId) && (review.type == ENTITY_TYPE)) {
           $('#reviewList').append(`
             <li class="review"><h4 class="inline">${review.user}: </h4>${review.comment}<br>
           `);
