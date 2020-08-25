@@ -19,7 +19,6 @@ function addToDo(entityType, entityID) {
 }
 
 function addReview(form, entityType, entityID) {
-  let rating = form.Rating.value;
   let comment = form.Comment.value;
   // alert(`Adding comment: ${comment}, rating: ${rating} for ${entityID} of ${entityType}`);
   $.ajax({
@@ -28,15 +27,15 @@ function addReview(form, entityType, entityID) {
     data: {
       EntityID: entityID,
       EntityType: entityType,
-      Rating: rating,
+      Rating: 0,
       Comment: comment
     },
     success: (data) => {
-      if (data.status_code == 201) {
-        alert("Review added");
-      } else {
-        alert("Review not added");
-      }
+      // if (data.status_code == 201) {
+      //   alert("Review added");
+      // } else {
+      //   alert("Review not added");
+      // }
     }
   });
   return false;
