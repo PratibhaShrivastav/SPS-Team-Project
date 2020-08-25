@@ -16,9 +16,6 @@ import java.util.List;
 import java.util.ArrayList;
 import com.google.appengine.api.datastore.PreparedQuery;
 import com.google.appengine.api.datastore.Query;
-import com.google.appengine.api.datastore.Query.Filter;
-import com.google.appengine.api.datastore.Query.FilterOperator;
-import com.google.appengine.api.datastore.Query.FilterPredicate;
 
 /* Servlet that handles adding review and rating to entity */
 @WebServlet("/add_review")
@@ -36,10 +33,7 @@ public class ReviewServlet extends HttpServlet {
 
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        HttpSession session = request.getSession();
-        String profileID = (String)session.getAttribute("profileID");
-        Filter propertyFilter = new FilterPredicate(PROFILE_ID_PROPERTY, FilterOperator.EQUAL, profileID);
-        Query query = new Query(REVIEW_ENTITY).setFilter(propertyFilter);
+        Query query = new Query(REVIEW_ENTITY);
         DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
         PreparedQuery results = datastore.prepare(query);
         List<UserReview> reviewList = new ArrayList<>();
