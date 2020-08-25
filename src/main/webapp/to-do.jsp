@@ -7,7 +7,7 @@
 
 	<!-- Displaying the movies -->
     <div id="movie-display">
-        <h1 id="toDoList"> To-Do List</h1>
+        <h1 id="toDoList"> Binge List</h1>
         <div class="container">
             <div class="row">
                 <div id="movie-grid">

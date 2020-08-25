@@ -20,7 +20,7 @@
 			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 				<ul class="nav navbar-nav">
 					<li><a href="home.jsp" class="nowPlaying">Home</a></li>
-                    <li><a href="to-do.jsp" class="nowPlaying">To-Do List</a></li>
+                    <li><a href="to-do.jsp" class="nowPlaying">Binge List</a></li>
 					<li class="dropdown">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Genres<span class="caret"></span></a>
 						<ul class="dropdown-menu">

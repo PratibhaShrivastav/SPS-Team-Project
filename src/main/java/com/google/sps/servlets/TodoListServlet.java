@@ -34,6 +34,9 @@ public class TodoListServlet extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         HttpSession session = request.getSession();
         String profileID = (String)session.getAttribute("ProfileID");
+        if (profileID.equals(null)) {
+            return;
+        }
         Filter propertyFilter = new FilterPredicate(PROFILE_ID_PROPERTY, FilterOperator.EQUAL, profileID);
         Query query = new Query(TODO_ENTITY).setFilter(propertyFilter);
         DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();

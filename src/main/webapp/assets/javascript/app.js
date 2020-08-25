@@ -50,7 +50,7 @@ $(document).ready(function() {
         return b;
     }
     function inToDoList(EntityType, EntityID) {
-        console.log(EntityType + " " + EntityID);
+        //console.log(EntityType + " " + EntityID);
         for (let i = 0; i < todoListData.length; i++) {
             //   console.log(EntityID + " " + todoListData[i].id);
             if (todoListData[i].id == EntityID && todoListData[i].type == EntityType) {
@@ -84,8 +84,13 @@ $(document).ready(function() {
             console.log("in to do");
             codeHTML += `<button id = "btn ${entityType} ${id}" type="button" onclick="alert("Already added to your to-do list");">Add to binge list</button>`;
         } else {
-            console.log("not in to do");
+            // console.log("not in to do");
             codeHTML += `<button id = "btn ${entityType} ${id}" type="button" onclick="addToDo(${entityType}, ${id});">Add to binge list</button>`;
+        }
+        if (entityType == 1) {
+          codeHTML += `<button id = "btn 1 ${obj.results[i].id}" onclick="location.href='/movies/${obj.results[i].id}'" type="button">Show more details</button>`;
+        } else if (entityType == 2) {
+          codeHTML += `<button id = "btn 1 ${obj.results[i].id}" onclick="location.href='/tv_shows/${obj.results[i].id}'" type="button">Show more details</button>`;
         }
         codeHTML += '</div></div></div></div></div>';
         return codeHTML;
@@ -93,19 +98,20 @@ $(document).ready(function() {
 
     function getDataFromJson(url, title, entity, divGrid, entityType) {
         fetch(url).then(response => response.json()).then((data) => {
-            console.log(data);
             $(divGrid).append(title);
+            var codeHTML = '';
             for (let i = 0; i < data.results.length; i++) {
+                console.log("inside loop");
                 var dataRes = data.results[i].id;
                 var thisMovieUrl = apiBaseURL + entity + dataRes + '/videos?api_key=' + apiKey;
-                // fetch(thisMovieUrl).then(response => response.json()).then((movieKey) => {
-                //     var codeHTML = getModalCode(data, i, "movieKey");
-                //     $(divGrid).append(codeHTML);
-                // });
-                if(data.results[i].poster_path.match(/\.(jpeg|jpg|gif|png)$/) != null) {
-                    var codeHTML = getModalCode(data, i, entityType);
+                if(data.results[i].poster_path != null) {
+                    codeHTML = getModalCode(data, i, entityType);
                     $(divGrid).append(codeHTML);
                 }
+            }
+            if(codeHTML == ''){
+                codeHTML += `<h3 style="text-align:center"> No results found </h3>`;
+                $(divGrid).append(codeHTML);
             }
         });
     }
@@ -129,6 +135,7 @@ $(document).ready(function() {
             console.log("not in to do");
             codeHTML += `<button id = "btn ${entityType} ${id}" type="button" onclick="addToDo(${entityType},\'`+ `${id}` + `\');">Add to binge list</button>`;
         }
+        codeHTML += `<button id = "btn 1 ${entityType} ${id}" onclick="location.href='/books/${id}'" type="button">Show more details</button>`;
         codeHTML += '</div></div></div></div></div>';
         return codeHTML;
 
@@ -136,11 +143,17 @@ $(document).ready(function() {
     }
     function getBookDataFromJson (url, title, divGrid, entityType) {
         fetch(url).then(response => response.json()).then((data) => {
-            console.log(data);
             $(divGrid).append(title);
-            for (let i = 0; i < data.items.length; i++) {
-                var codeHTML = getBookModalCode(data.items[i], entityType);
+            var codeHTML = '';
+            if (data.totalItems == 0){
+                codeHTML += `<h3 style="text-align:center"> No results found </h3>`;
                 $(divGrid).append(codeHTML);
+            }
+            else{
+                for (let i = 0; i < data.items.length; i++) {
+                    codeHTML = getBookModalCode(data.items[i], entityType);
+                    $(divGrid).append(codeHTML);
+                }
             }
         });
     }
@@ -290,10 +303,7 @@ function addToDo(entityType, entityID) {
       type: 'POST',
       data: {EntityType: entityType, EntityID: entityID},
       success: function(data){
-        if (data.status_code == 201){
-            alert("Item added to bingelist!");
-        }
-        else{
+        if (data.status_code != 201){
             alert("Item already present in bingelist!");
         }
       }
