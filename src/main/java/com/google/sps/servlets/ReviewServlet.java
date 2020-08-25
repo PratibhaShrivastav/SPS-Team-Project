@@ -16,6 +16,7 @@ import java.util.List;
 import java.util.ArrayList;
 import com.google.appengine.api.datastore.PreparedQuery;
 import com.google.appengine.api.datastore.Query;
+import com.google.appengine.api.datastore.Query.SortDirection;
 
 /* Servlet that handles adding review and rating to entity */
 @WebServlet("/add_review")
@@ -34,7 +35,7 @@ public class ReviewServlet extends HttpServlet {
 
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        Query query = new Query(REVIEW_ENTITY);
+        Query query = new Query(REVIEW_ENTITY).addSort(TIMESTAMP_PROPERTY, SortDirection.DESCENDING);
         DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
         PreparedQuery results = datastore.prepare(query);
         List<UserReview> reviewList = new ArrayList<>();
