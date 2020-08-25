@@ -116,9 +116,7 @@ function markCompleted(entityType, entityID) {
 			EntityID: entityID
 		},
 		success: function(data) {
-			if (data.status_code == 200) {
-				alert("Item removed from bingelist!");
-			} else {
+			if (data.status_code != 200) {
 				alert("Item couldn't be removed from bingelist!");
 			}
 		}
