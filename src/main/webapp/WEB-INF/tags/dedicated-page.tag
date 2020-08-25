@@ -14,7 +14,7 @@
 	<script src="https://apis.google.com/js/api:client.js"></script>
 	<script src="https://apis.google.com/js/platform.js" async defer></script>
 	<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-	<script type="text/javascript" src="assets/javascript/auth.js"></script>
+	<script type="text/javascript" src="/assets/javascript/auth.js"></script>
 	<jsp:invoke fragment="css"/>
 </head>
 
