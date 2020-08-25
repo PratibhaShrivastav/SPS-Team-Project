@@ -27,13 +27,10 @@
                 </div>
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav">
-                        <li>
-                            <a href="index.html" class="nowPlaying">Home</a>
-                        </li>
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                                Genres<span class="caret"></span>
-                            </a>
+                        <li><a href="/home.jsp" class="nowPlaying">Home</a></li>
+                        <li><a href="/to-do.jsp" class="nowPlaying">To-Do List</a></li>
+                        <!-- <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Genres<span class="caret"></span></a>
                             <ul class="dropdown-menu">
                                 <li><a href="#" class="action" id="action">Action</a></li>
                                 <li><a href="#" class="animation" id="animation">Animation</a></li>
@@ -47,17 +44,31 @@
                                 <li><a href="#" class="scifi" id="scifi">Science Fiction</a></li>
                                 <li><a href="#" class="thriller" id="thriller">Thriller</a></li>
                             </ul>
-                        </li>
+                        </li> -->
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
-                        <form class="navbar-form navbar-right searchForm">
+                        <!-- <form class="navbar-form navbar-right searchForm">
                             <div class="form-group">
                                 <input id="searchMovieNeWindowxfxInput" type="text" class="form-control" placeholder="Search movies">
                             </div>
                             <button type="submit" class="btn btn-default">
                                 <i class="glyphicon glyphicon-search"></i>
                             </button>
-                        </form>
+                        </form> -->
+                        <li class="icon-bar">
+                            <div class="user">
+                                <img class="user-image">
+                            </div>
+                        </li>
+                        <li>
+                            <div class="user">
+                                <div class="user-info">
+                                    <p class="full-name"></p>
+                                    </br>
+                                    <p class="email"></p>
+                                </div>
+                            </div>
+                        </li>
                         <li class="icon-bar">
                             <div class="g-signin2" data-onsuccess="onSignIn" data-width="120" data-height="45"></div>
                         </li>
@@ -96,10 +107,10 @@
                         </div>
                         <div class="article" id="addReview">
                             <h2>Add your review here</h2>
-                            <form action="#" onsubmit="return addReview(this, 1, ${movie_id});">
+                            <form onsubmit="addReview(this, 1, ${movie_id})">
                                 <h4 class="inline">Rating: </h4><input type="number" id="rating" name="Rating" min="1" max="10" step="1"><br><br>
                                 <h4 class="inline"> Comment: </h4><br>
-                                <textarea name="Comment" rows="3" cols="117"></textarea><br>
+                                <textarea name="Comment" id="comment" rows="3" cols="117"></textarea><br>
                                 <button class="btn primary large" rel="login" type="submit">Add</button>
                             </form>
                         </div>

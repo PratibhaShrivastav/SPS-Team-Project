@@ -168,3 +168,16 @@ button.btnModal {
   font-weight: 500;
   -webkit-font-smoothing: auto;
 }
+
+.review {
+  margin-left: 15px;
+}
+
+.navbar-inverse {
+  height: 62px;
+}
+
+a.nowPlaying {
+  font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif;
+  font-size: 15px;
+}
