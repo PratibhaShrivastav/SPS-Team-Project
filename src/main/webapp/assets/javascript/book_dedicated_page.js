@@ -1,24 +1,5 @@
 const API_BASE_URL = 'https://www.googleapis.com/books/v1/volumes';
 
-function addToDo(entityType, entityID){
-  var form = $("<form></form>");
-  form.attr('method', 'post');
-  form.attr('action', '/mark_todo');
-  var field1 = $('<input></input>');
-  field1.attr('type', 'hidden');
-  field1.attr('name', 'EntityType');
-  field1.attr('value', entityType);
-  form.append(field1);
-  var field2 = $('<input></input>');
-  field2.attr('type', 'hidden');
-  field2.attr('name', 'EntityID');
-  field2.attr('value', entityID);
-  form.append(field2);
-  console.log(form);
-  $(document.body).append(form);
-  form.submit();
-}
-
 let bookId = $('#book-details').data('book-id');
 console.log("Book id:", bookId);
 axios.get(`${API_BASE_URL}/${bookId}`)
@@ -40,14 +21,14 @@ axios.get(`${API_BASE_URL}/${bookId}`)
       `);
 
       $('#previewLink').html(`
-        <button id = "btn btn-primary" type="button" onclick="location.href='${response.data.volumeInfo.previewLink}'">
+        <button id="btn btn-primary" type="button" onclick="location.href='${response.data.volumeInfo.previewLink}'">
           <span class="glyphicon glyphicon-book"></span>
           Preview
         </button>
       `);
 
       $('#changeTodoStatus').html(`
-        <button id="btn btn-primary" type="button" onclick="addToDo(1, ${bookId})">
+        <button id="btn btn-primary" type="button" onclick="addToDo(3, '${bookId}')">
           <span class="glyphicon glyphicon-plus"></span>
           Add to todo list
         </button>
