@@ -1,4 +1,5 @@
 const API_BASE_URL = 'https://www.googleapis.com/books/v1/volumes';
+const ENTITY_TYPE = 3;
 
 let bookId = $('#book-details').data('book-id');
 console.log("Book id:", bookId);
@@ -63,12 +64,13 @@ axios.get(`${API_BASE_URL}/${bookId}`)
       `);
     });
 
-let response = [
-  "Very good.",
-  "I like this book."
-];
-for (let review of response) {
-  $('#reviewList').append(`
-    <li class="review">${review}<br>
-  `);
-}
+axios.get("/add_review")
+    .then((response) => {
+      for (let review of response.data) {
+        if ((review.id === bookId) && (review.type === ENTITY_TYPE)) {
+          $('#reviewList').append(`
+            <li class="review"><h4 class="inline">${review.user}: </h4>${review.comment}<br>
+          `);
+        }
+      }
+    });
