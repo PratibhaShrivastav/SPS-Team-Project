@@ -114,6 +114,7 @@
 	</jsp:attribute>
 
     <jsp:attribute name="scripts">
+        <script type="text/javascript" src="/assets/javascript/utils.js"></script>
         <script type="text/javascript" src="/assets/javascript/book_dedicated_page.js"></script>
         <script src="https://www.gstatic.com/firebasejs/5.2.0/firebase.js"></script>
     </jsp:attribute>
