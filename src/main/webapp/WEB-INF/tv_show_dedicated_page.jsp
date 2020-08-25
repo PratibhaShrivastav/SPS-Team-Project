@@ -100,8 +100,10 @@
                         </div>
                         <div class="article" id="addReview">
                             <h2>Add your review here</h2>
-                            <form action="/api/tv_shows/add_review" method="POST">
-                                <textarea name="review" rows="3" cols="117"></textarea><br>
+                            <form action="#" onsubmit="return addReview(this, 2, ${tv_show_id});">
+                                <h4 class="inline">Rating: </h4><input type="number" id="rating" name="Rating" min="1" max="10" step="1"><br><br>
+                                <h4 class="inline"> Comment: </h4><br>
+                                <textarea name="Comment" rows="3" cols="117"></textarea><br>
                                 <button class="btn primary large" rel="login" type="submit">Add</button>
                             </form>
                         </div>

@@ -2,6 +2,7 @@ const API_BASE_URL = 'https://api.themoviedb.org/3';
 const API_KEY = '28e7691b28199415eec6fd8d3e1ffd18';
 const IMAGE_BASE_URL = 'https://image.tmdb.org/t/p';
 const YOUTUBE_WATCH_URL = 'https://www.youtube.com/watch?v='
+const ENTITY_TYPE = 1;
 
 let movieId = $('#movie-details').data('movie-id');
 axios.get(`${API_BASE_URL}/movie/${movieId}`, {
@@ -58,12 +59,13 @@ axios.get(`${API_BASE_URL}/movie/${movieId}`, {
   `);
 });
 
-let response = [
-  "Very good.",
-  "I like this movie"
-];
-for (let review of response) {
-  $('#reviewList').append(`
-    <li class="review">${review}<br>
-  `);
-}
+axios.get("/add_review")
+    .then((response) => {
+      for (let review of response.data) {
+        if ((review.id === movieId) && (review.type === ENTITY_TYPE)) {
+          $('#reviewList').append(`
+            <li class="review"><h4 class="inline">${review.user}: </h4>${review.comment}<br>
+          `);
+        }
+      }
+    });
