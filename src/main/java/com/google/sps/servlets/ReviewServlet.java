@@ -60,6 +60,9 @@ public class ReviewServlet extends HttpServlet {
         String profileID = (String)session.getAttribute("ProfileID");
         String fullName = (String)session.getAttribute("FullName");
         if (profileID.equals(null) || fullName.equals(null)) {
+            ResponseStatus responseStatus = ResponseStatus.builder().status_code(HttpServletResponse.SC_BAD_REQUEST).status_message("Bad Request").build();
+            response.setContentType("application/json");
+            response.getWriter().write(GSON.toJson(responseStatus));
             return;
         }
         String entityID = String.valueOf(request.getParameter("EntityID"));

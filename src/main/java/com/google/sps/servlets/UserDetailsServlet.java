@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import com.google.sps.data.ResponseStatus;
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.appengine.api.datastore.Entity;
@@ -34,6 +35,9 @@ public class UserDetailsServlet extends HttpServlet {
         HttpSession session = request.getSession();
         String profileID = (String)session.getAttribute("ProfileID");
         if (profileID.equals(null)) {
+            ResponseStatus responseStatus = ResponseStatus.builder().status_code(HttpServletResponse.SC_BAD_REQUEST).status_message("Bad Request").build();
+            response.setContentType("application/json");
+            response.getWriter().write(gson.toJson(responseStatus));
             return;
         }
         Filter propertyFilter = new FilterPredicate(PROFILE_ID_PROPERTY, FilterOperator.EQUAL, profileID);

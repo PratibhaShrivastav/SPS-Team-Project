@@ -13,6 +13,7 @@ import com.google.sps.data.BaseEntity;
 import com.google.gson.Gson;
 import java.util.List;
 import java.util.ArrayList;
+import com.google.sps.data.ResponseStatus;
 import com.google.appengine.api.datastore.PreparedQuery;
 import com.google.appengine.api.datastore.Query;
 import com.google.appengine.api.datastore.Query.Filter;
@@ -35,6 +36,9 @@ public class TodoListServlet extends HttpServlet {
         HttpSession session = request.getSession();
         String profileID = (String)session.getAttribute("ProfileID");
         if (profileID.equals(null)) {
+            ResponseStatus responseStatus = ResponseStatus.builder().status_code(HttpServletResponse.SC_BAD_REQUEST).status_message("Bad Request").build();
+            response.setContentType("application/json");
+            response.getWriter().write(GSON.toJson(responseStatus));
             return;
         }
         Filter propertyFilter = new FilterPredicate(PROFILE_ID_PROPERTY, FilterOperator.EQUAL, profileID);
