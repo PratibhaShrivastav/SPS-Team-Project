@@ -21,17 +21,17 @@
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Genres<span class="caret"></span></a>
                             <ul class="dropdown-menu">
-                                <li><a href="home.jsp?genre-action=1" class="action" id="action">Action</a></li>
-                                <li><a href="home.jsp?genre-animation=1" class="animation" id="animation">Animation</a></li>
-                                <li><a href="home.jsp?genre-comedy=1" class="comedy" id="comedy">Comedy</a></li>
-                                <li><a href="home.jsp?genre-drama=1" class="drama" id="drama">Drama</a></li>
-                                <li><a href="home.jsp?genre-family=1" class="family" id="family">Family</a></li>
-                                <li><a href="home.jsp?genre-fantasy=1" class="fantasy" id="fantasy">Fantasy</a></li>
-                                <li><a href="home.jsp?genre-horror=1" class="horror" id="horror">Horror</a></li>
-                                <li><a href="home.jsp?genre-music=1" class="music" id="music">Music</a></li>
-                                <li><a href="home.jsp?genre-romance=1" class="romance" id="romance">Romance</a></li>
-                                <li><a href="home.jsp?genre-scifi=1" class="scifi" id="scifi">Science Fiction</a></li>
-                                <li><a href="home.jsp?genre-thriller=1" class="thriller" id="thriller">Thriller</a></li>
+                                <li><a href="/home.jsp?genre-action=1" class="action" id="action">Action</a></li>
+                                <li><a href="/home.jsp?genre-animation=1" class="animation" id="animation">Animation</a></li>
+                                <li><a href="/home.jsp?genre-comedy=1" class="comedy" id="comedy">Comedy</a></li>
+                                <li><a href="/home.jsp?genre-drama=1" class="drama" id="drama">Drama</a></li>
+                                <li><a href="/home.jsp?genre-family=1" class="family" id="family">Family</a></li>
+                                <li><a href="/home.jsp?genre-fantasy=1" class="fantasy" id="fantasy">Fantasy</a></li>
+                                <li><a href="/home.jsp?genre-horror=1" class="horror" id="horror">Horror</a></li>
+                                <li><a href="/home.jsp?genre-music=1" class="music" id="music">Music</a></li>
+                                <li><a href="/home.jsp?genre-romance=1" class="romance" id="romance">Romance</a></li>
+                                <li><a href="/home.jsp?genre-scifi=1" class="scifi" id="scifi">Science Fiction</a></li>
+                                <li><a href="/home.jsp?genre-thriller=1" class="thriller" id="thriller">Thriller</a></li>
                             </ul>
                         </li>
                     </ul>
