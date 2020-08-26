@@ -32,9 +32,9 @@ axios.get(`${API_BASE_URL}/movie/${movieId}`, {
   `);
 
   $('#changeTodoStatus').html(`
-    <button id="btn btn-primary" type="button" onclick="addToDo(1, ${movieId})">
+    <button id="btn btn-primary btn-todo" type="button" onclick="addToDo(1, ${movieId})">
       <span class="glyphicon glyphicon-plus"></span>
-      Add to todo list
+      Add to binge list
     </button>
   `);
 

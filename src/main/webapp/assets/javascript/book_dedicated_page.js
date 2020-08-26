@@ -29,9 +29,9 @@ axios.get(`${API_BASE_URL}/${bookId}`)
       `);
 
       $('#changeTodoStatus').html(`
-        <button id="btn btn-primary" type="button" onclick="addToDo(3, '${bookId}')">
+        <button id="btn btn-primary btn-todo" type="button" onclick="addToDo(3, '${bookId}')">
           <span class="glyphicon glyphicon-plus"></span>
-          Add to todo list
+          Add to binge list
         </button>
       `);
 

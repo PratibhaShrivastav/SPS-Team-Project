@@ -32,9 +32,9 @@ axios.get(`${API_BASE_URL}/tv/${tvShowId}`, {
   `);
 
   $('#changeTodoStatus').html(`
-    <button id="btn btn-primary" type="button" onclick="addToDo(2, ${tvShowId})">
+    <button id="btn btn-primary btn-todo" type="button" onclick="addToDo(2, ${tvShowId})">
       <span class="glyphicon glyphicon-plus"></span>
-      Add to todo list
+      Add to binge list
     </button>
   `);
 

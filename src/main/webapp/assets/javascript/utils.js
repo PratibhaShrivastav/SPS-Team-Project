@@ -8,14 +8,12 @@ function addToDo(entityType, entityID) {
       EntityID: entityID
     },
     success: (data) => {
-      if (data.status_code == 201) {
-        alert("Item added to bingelist!");
-      } else {
+      if (data.status_code != 201) {
         alert("Item already present in bingelist!");
       }
     }
   });
-  document.getElementById("btn "+ entityType + " " + entityID).disabled = true;
+  document.getElementById("btn btn-primary btn-todo").disabled = true;
 }
 
 function addReview(form, entityType, entityID) {
