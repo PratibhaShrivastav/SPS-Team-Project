@@ -1,10 +1,13 @@
 const API_BASE_URL = 'https://www.googleapis.com/books/v1/volumes';
 const ENTITY_TYPE = 3;
 
+var todoListData;
+
 let bookId = $('#book-details').data('book-id');
 console.log("Book id:", bookId);
 axios.get(`${API_BASE_URL}/${bookId}`)
     .then(async (response) => {
+      await getToDo();
       console.log('Book details: ', response);
 
       $('#poster').html(`
@@ -28,12 +31,21 @@ axios.get(`${API_BASE_URL}/${bookId}`)
         </button>
       `);
 
-      $('#changeTodoStatus').html(`
-        <button id="btn btn-primary btn-todo" type="button" onclick="addToDo(3, '${bookId}')">
-          <span class="glyphicon glyphicon-plus"></span>
-          Add to binge list
-        </button>
-      `);
+			if (inToDoList(3, bookId)) {
+				$('#changeTodoStatus').html(`
+					<button id="btn btn-primary" type="button" onclick="alert("Already added to your to-do list");">
+						<span class="glyphicon glyphicon-plus"></span>
+						Add to todo list
+					</button>
+				`);
+			} else {
+				$('#changeTodoStatus').html(`
+					<button id="btn btn-primary" type="button" onclick="addToDo(3, '${bookId}')">
+						<span class="glyphicon glyphicon-plus"></span>
+						Add to todo list
+					</button>
+				`);
+			}
 
       $('#authors').html(`
         <h4 class="inline">Authors: </h4>${response.data.volumeInfo.authors.join(", ")}
@@ -70,8 +82,26 @@ axios.get("/add_review")
       for (let review of response.data) {
         if ((review.id == bookId) && (review.type == ENTITY_TYPE)) {
           $('#reviewList').append(`
-            <li class="review"><h4 class="inline">${review.user}: </h4>${review.comment}<br>
+            <li class="review"><h4 class="inline">${review.name}: </h4>${review.comment}<br>
           `);
         }
       }
     });
+
+function getToDo() {
+  const request = async () => {
+    const response = await fetch("/todo_list");
+    const json = response.json();
+    return json;
+  }
+  todoListData = request();
+}
+
+function inToDoList(EntityType, EntityID) {
+  for (let i = 0; i < todoListData.length; i++) {
+    if (todoListData[i].id == EntityID && todoListData[i].type == EntityType) {
+      return true;
+    }
+  }
+  return false;
+}

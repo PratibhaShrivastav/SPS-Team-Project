@@ -34,6 +34,12 @@ public class MarkTodoServlet extends HttpServlet {
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         HttpSession session = request.getSession();
         String profileID = (String)session.getAttribute("ProfileID");
+        if (profileID.equals(null)) {
+            ResponseStatus responseStatus = ResponseStatus.builder().status_code(HttpServletResponse.SC_BAD_REQUEST).status_message("Bad Request").build();
+            response.setContentType("application/json");
+            response.getWriter().write(GSON.toJson(responseStatus));
+            return;
+        }
         int entityType = Integer.parseInt(request.getParameter("EntityType"));
         String entityID = String.valueOf(request.getParameter("EntityID"));
         long timestamp = System.currentTimeMillis();

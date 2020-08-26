@@ -4,12 +4,15 @@ const IMAGE_BASE_URL = 'https://image.tmdb.org/t/p';
 const YOUTUBE_WATCH_URL = 'https://www.youtube.com/watch?v='
 const ENTITY_TYPE = 1;
 
+var todoListData;
+
 let movieId = $('#movie-details').data('movie-id');
 axios.get(`${API_BASE_URL}/movie/${movieId}`, {
   params: {
     api_key: API_KEY
   }
 }).then(async (response) => {
+  await getToDo();
   console.log('Movie details: ', response);
 
   $('#poster').html(`
@@ -31,12 +34,21 @@ axios.get(`${API_BASE_URL}/movie/${movieId}`, {
     </button>
   `);
 
-  $('#changeTodoStatus').html(`
-    <button id="btn btn-primary btn-todo" type="button" onclick="addToDo(1, ${movieId})">
-      <span class="glyphicon glyphicon-plus"></span>
-      Add to binge list
-    </button>
-  `);
+  if (inToDoList(1, movieId)) {
+    $('#changeTodoStatus').html(`
+      <button id="btn btn-primary" type="button" onclick="alert("Already added to your to-do list");">
+        <span class="glyphicon glyphicon-plus"></span>
+        Add to todo list
+      </button>
+    `);
+  } else {
+    $('#changeTodoStatus').html(`
+      <button id="btn btn-primary" type="button" onclick="addToDo(1, ${movieId})">
+        <span class="glyphicon glyphicon-plus"></span>
+        Add to todo list
+      </button>
+    `);
+  }
 
   $('#release').html(`
     <h4 class="inline">Release: </h4>${response.data.release_date}
@@ -65,8 +77,26 @@ axios.get("/add_review")
       for (let review of response.data) {
         if ((review.id == movieId) && (review.type == ENTITY_TYPE)) {
           $('#reviewList').append(`
-            <li class="review"><h4 class="inline">${review.user}: </h4>${review.comment}<br>
+            <li class="review"><h4 class="inline">${review.name}: </h4>${review.comment}<br>
           `);
         }
       }
     });
+
+function getToDo() {
+  const request = async () => {
+    const response = await fetch("/todo_list");
+    const json = response.json();
+    return json;
+  }
+  todoListData = request();
+}
+
+function inToDoList(EntityType, EntityID) {
+  for (let i = 0; i < todoListData.length; i++) {
+    if (todoListData[i].id == EntityID && todoListData[i].type == EntityType) {
+      return true;
+    }
+  }
+  return false;
+}
