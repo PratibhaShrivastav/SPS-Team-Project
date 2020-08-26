@@ -10,8 +10,7 @@ $(document).ready(function() {
     const movieUrl = apiBaseURL + 'movie/now_playing?api_key=' + apiKey;
     const showUrl = apiBaseURL + 'tv/top_rated?api_key=' + apiKey;
     const bookUrl = "https://www.googleapis.com/books/v1/volumes?q=subject:fiction";
-
-
+    const URL_PARAMS = new URLSearchParams(window.location.search);
 
     var todoListData;
 
@@ -212,7 +211,10 @@ $(document).ready(function() {
         $('#search-show-grid').html('');
         $('#search-book-grid').html('');
     }
-    getHomePage();
+
+    if (URL_PARAMS.toString() === "") {
+        getHomePage();
+    }
 
     //Reset HTML strings to empty to overwrite with new one!
     var nowPlayingHTML = '';
@@ -221,39 +223,88 @@ $(document).ready(function() {
     $('#action').click(function() {
         getByGenre(28, "Action");
     });
+
+    if (URL_PARAMS.get('genre-action') === '1') {
+        console.log("Found genre-action query parameter");
+        getByGenre(28, "Action");
+    }
+
     $('#adventure').click(function() {
         getByGenre(12, "Adventure");
     });
+    if (URL_PARAMS.get('genre-adventure') === '1') {
+        getByGenre(12, "Adventure");
+    }
+
     $('#animation').click(function() {
         getByGenre(16, "Animation");
     });
+    if (URL_PARAMS.get('genre-animation') === '1') {
+        getByGenre(16, "Animation");
+    }
+
     $('#comedy').click(function() {
         getByGenre(35, "Comedy");
     });
+    if (URL_PARAMS.get('genre-comedy') === '1') {
+        getByGenre(35, "Comedy");
+    }
+
     $('#drama').click(function() {
         getByGenre(18, "Drama");
     });
+    if (URL_PARAMS.get('genre-drama') === '1') {
+        getByGenre(18, "Drama");
+    }
+    
     $('#family').click(function() {
         getByGenre(10751, "Family");
     });
+    if (URL_PARAMS.get('genre-family') === '1') {
+        getByGenre(10751, "Family");
+    }
+
     $('#fantasy').click(function() {
         getByGenre(14, "Fantasy");
     });
+    if (URL_PARAMS.get('genre-fantasy') === '1') {
+        getByGenre(14, "Fantasy");
+    }
+
     $('#horror').click(function() {
         getByGenre(27, "Horror");
     });
+    if (URL_PARAMS.get('genre-horror') === '1') {
+        getByGenre(27, "Horror");
+    }
+
     $('#music').click(function() {
         getByGenre(10402, "Music");
     });
+    if (URL_PARAMS.get('genre-music') === '1') {
+        getByGenre(10402, "Music");
+    }
+
     $('#romance').click(function() {
         getByGenre(10749, "Romance");
     });
+    if (URL_PARAMS.get('genre-romance') === '1') {
+        getByGenre(10749, "Romance");
+    }
+
     $('#scifi').click(function() {
         getByGenre(878, "Sci-Fi");
     });
+    if (URL_PARAMS.get('genre-scifi') === '1') {
+        getByGenre(878, "Sci-Fi");
+    }
+
     $('#thriller').click(function() {
         getByGenre(53, "Thriller");
     });
+    if (URL_PARAMS.get('genre-thriller') === '1') {
+        getByGenre(53, "Thriller");
+    }
 
     // Search Function
     //Run function searchMovies AFTER an input has been submitted. Submit form first.
@@ -270,6 +321,16 @@ $(document).ready(function() {
         searchShows();
         searchBooks();
     });
+
+    if (URL_PARAMS.get('search-item') !== '') {
+        clearPage();
+        //search term is only concerned with what the user inputted
+        //Get input with .val();
+        searchTerm = URL_PARAMS.get('search-item');
+        searchMovies();
+        searchShows();
+        searchBooks();
+    }
 
     function searchMovies() {
         const searchMovieURL = apiBaseURL + 'search/movie?api_key=' + apiKey + '&language=en-US&page=1&include_adult=false&query=' + searchTerm;

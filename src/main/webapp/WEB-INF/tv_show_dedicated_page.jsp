@@ -29,32 +29,32 @@
                     <ul class="nav navbar-nav">
                         <li><a href="/home.jsp" class="nowPlaying">Home</a></li>
                         <li><a href="/to-do.jsp" class="nowPlaying">Binge List</a></li>
-                        <!-- <li class="dropdown">
+                        <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Genres<span class="caret"></span></a>
                             <ul class="dropdown-menu">
-                                <li><a href="#" class="action" id="action">Action</a></li>
-                                <li><a href="#" class="animation" id="animation">Animation</a></li>
-                                <li><a href="#" class="comedy" id="comedy">Comedy</a></li>
-                                <li><a href="#" class="drama" id="drama">Drama</a></li>
-                                <li><a href="#" class="family" id="family">Family</a></li>
-                                <li><a href="#" class="fantasy" id="fantasy">Fantasy</a></li>
-                                <li><a href="#" class="horror" id="horror">Horror</a></li>
-                                <li><a href="#" class="music" id="music">Music</a></li>
-                                <li><a href="#" class="romance" id="romance">Romance</a></li>
-                                <li><a href="#" class="scifi" id="scifi">Science Fiction</a></li>
-                                <li><a href="#" class="thriller" id="thriller">Thriller</a></li>
+                                <li><a href="/home.jsp?genre-action=1" class="action" id="action">Action</a></li>
+                                <li><a href="/home.jsp?genre-animation=1" class="animation" id="animation">Animation</a></li>
+                                <li><a href="/home.jsp?genre-comedy=1" class="comedy" id="comedy">Comedy</a></li>
+                                <li><a href="/home.jsp?genre-drama=1" class="drama" id="drama">Drama</a></li>
+                                <li><a href="/home.jsp?genre-family=1" class="family" id="family">Family</a></li>
+                                <li><a href="/home.jsp?genre-fantasy=1" class="fantasy" id="fantasy">Fantasy</a></li>
+                                <li><a href="/home.jsp?genre-horror=1" class="horror" id="horror">Horror</a></li>
+                                <li><a href="/home.jsp?genre-music=1" class="music" id="music">Music</a></li>
+                                <li><a href="/home.jsp?genre-romance=1" class="romance" id="romance">Romance</a></li>
+                                <li><a href="/home.jsp?genre-scifi=1" class="scifi" id="scifi">Science Fiction</a></li>
+                                <li><a href="/home.jsp?genre-thriller=1" class="thriller" id="thriller">Thriller</a></li>
                             </ul>
-                        </li> -->
+                        </li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
-                        <!-- <form class="navbar-form navbar-right searchForm">
+                        <form class="navbar-form navbar-right searchForm" action="/home.jsp" method="GET">
                             <div class="form-group">
-                                <input id="searchMovieNeWindowxfxInput" type="text" class="form-control" placeholder="Search movies">
+                                <input name="search-item" id="searchMovieNeWindowxfxInput" type="text" class="form-control" placeholder="Search movies">
                             </div>
                             <button type="submit" class="btn btn-default">
                                 <i class="glyphicon glyphicon-search"></i>
                             </button>
-                        </form> -->
+                        </form>
                         <li class="icon-bar">
                             <div class="user">
                                 <img class="user-image">
