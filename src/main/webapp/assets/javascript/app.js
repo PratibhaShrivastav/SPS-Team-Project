@@ -322,6 +322,16 @@ $(document).ready(function() {
         searchBooks();
     });
 
+    if (URL_PARAMS.get('search-item') !== '') {
+        clearPage();
+        //search term is only concerned with what the user inputted
+        //Get input with .val();
+        searchTerm = URL_PARAMS.get('search-item');
+        searchMovies();
+        searchShows();
+        searchBooks();
+    }
+
     function searchMovies() {
         const searchMovieURL = apiBaseURL + 'search/movie?api_key=' + apiKey + '&language=en-US&page=1&include_adult=false&query=' + searchTerm;
         var searchedTerm = '<h1 class="movieGenreLabel" >"' + searchTerm + '" in Movies.</h1>'

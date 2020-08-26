@@ -47,14 +47,14 @@
                         </li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
-                        <!-- <form class="navbar-form navbar-right searchForm">
+                        <form class="navbar-form navbar-right searchForm" action="/home.jsp" method="GET">
                             <div class="form-group">
-                                <input id="searchMovieNeWindowxfxInput" type="text" class="form-control" placeholder="Search movies">
+                                <input name="search-item" id="searchMovieNeWindowxfxInput" type="text" class="form-control" placeholder="Search movies">
                             </div>
                             <button type="submit" class="btn btn-default">
                                 <i class="glyphicon glyphicon-search"></i>
                             </button>
-                        </form> -->
+                        </form>
                         <li class="icon-bar">
                             <div class="user">
                                 <img class="user-image">
