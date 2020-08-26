@@ -33,7 +33,7 @@ axios.get(`${API_BASE_URL}/movie/${movieId}`, {
       &nbspPlay trailer
     </button>
   `);
-  
+
   if (inToDoList(1, movieId)) {
     $('#changeTodoStatus').html(`
       <button id="btn btn-primary" type="button" onclick="alert("Already added to your to-do list");">
