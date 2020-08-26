@@ -25,7 +25,7 @@ $(document).ready(function() {
         todoListData = request();
     }
 
-    getToDo();
+    // getToDo();
 
     // Check genreIDs and genre names:
     // http://api.themoviedb.org/3/movie/:movieID?api_key=<<>>
@@ -197,8 +197,9 @@ $(document).ready(function() {
         getBookDataFromJson(getBooksByGenreUrl, titleGenre, "#search-book-grid", 3);
     }
 
-    function getHomePage() {
+    async function getHomePage() {
         clearPage();
+        await getToDo();
         getTrendingMovieData("#movie-grid");
         getTrendingShowData("#show-grid");
         getTrendingBookData("#book-grid");
@@ -212,6 +213,7 @@ $(document).ready(function() {
         $('#search-show-grid').html('');
         $('#search-book-grid').html('');
     }
+
     getHomePage();
 
     //Reset HTML strings to empty to overwrite with new one!
@@ -305,6 +307,8 @@ function addToDo(entityType, entityID) {
       success: function(data){
         if (data.status_code != 201){
             alert("Item already present in bingelist!");
+        } else {
+            window.location.reload();
         }
       }
   });

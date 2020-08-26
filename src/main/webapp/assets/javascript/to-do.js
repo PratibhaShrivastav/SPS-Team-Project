@@ -118,7 +118,9 @@ function markCompleted(entityType, entityID) {
 		success: function(data) {
 			if (data.status_code != 200) {
 				alert("Item couldn't be removed from bingelist!");
-			}
+			} else {
+                window.location.reload();
+            }
 		}
 	});
 

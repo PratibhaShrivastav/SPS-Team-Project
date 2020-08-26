@@ -9,7 +9,7 @@ function addToDo(entityType, entityID) {
     },
     success: (data) => {
       if (data.status_code == 201) {
-        alert("Item added to bingelist!");
+        window.location.reload();
       } else {
         alert("Item already present in bingelist!");
       }

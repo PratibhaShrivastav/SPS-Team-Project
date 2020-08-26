@@ -4,12 +4,15 @@ const IMAGE_BASE_URL = 'https://image.tmdb.org/t/p';
 const YOUTUBE_WATCH_URL = 'https://www.youtube.com/watch?v='
 const ENTITY_TYPE = 2;
 
+var todoListData;
+
 let tvShowId = $('#tv-show-details').data('tv-show-id');
 axios.get(`${API_BASE_URL}/tv/${tvShowId}`, {
   params: {
     api_key: API_KEY
   }
 }).then(async (response) => {
+  await getToDo();
   console.log('Tv Show details: ', response);
 
   $('#poster').html(`
@@ -30,13 +33,22 @@ axios.get(`${API_BASE_URL}/tv/${tvShowId}`, {
       &nbspPlay trailer
     </button>
   `);
-
-  $('#changeTodoStatus').html(`
-    <button id="btn btn-primary" type="button" onclick="addToDo(2, ${tvShowId})">
-      <span class="glyphicon glyphicon-plus"></span>
-      Add to todo list
-    </button>
-  `);
+  
+	if (inToDoList(2, tvShowId)) {
+		$('#changeTodoStatus').html(`
+			<button id="btn btn-primary" type="button" onclick="alert("Already added to your to-do list");">
+				<span class="glyphicon glyphicon-plus"></span>
+				Add to todo list
+			</button>
+		`);
+	} else {
+		$('#changeTodoStatus').html(`
+			<button id="btn btn-primary" type="button" onclick="addToDo(2, ${tvShowId})">
+				<span class="glyphicon glyphicon-plus"></span>
+				Add to todo list
+			</button>
+		`);
+	}
 
   $('#firstAirDate').html(`
     <h4 class="inline">First air date: </h4>${response.data.first_air_date}
@@ -86,3 +98,21 @@ axios.get("/add_review")
         }
       }
     });
+
+function getToDo() {
+  const request = async () => {
+    const response = await fetch("/todo_list");
+    const json = response.json();
+    return json;
+  }
+  todoListData = request();
+}
+
+function inToDoList(EntityType, EntityID) {
+  for (let i = 0; i < todoListData.length; i++) {
+    if (todoListData[i].id == EntityID && todoListData[i].type == EntityType) {
+      return true;
+    }
+  }
+  return false;
+}
