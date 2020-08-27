@@ -314,20 +314,20 @@ $(document).ready(function() {
     //reference entire search form
     $('.searchForm').submit(function(event) {
         event.preventDefault();
-        clearPage();
-        //search term is only concerned with what the user inputted
-        //Get input with .val();
-        searchTerm = $('.form-control').val();
-        searchMovies();
-        searchShows();
-        searchBooks();
+        search($('.form-control').val());
     });
 
     if (URL_PARAMS.get('search-item') != null) {
+        search(URL_PARAMS.get('search-item'));
+    }
+
+    async function search(searchQuery) {
+        console.log('Search query', searchQuery);
+        await getToDo();
+        searchTerm = searchQuery;
         clearPage();
         //search term is only concerned with what the user inputted
         //Get input with .val();
-        searchTerm = URL_PARAMS.get('search-item');
         searchMovies();
         searchShows();
         searchBooks();
