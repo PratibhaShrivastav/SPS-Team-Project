@@ -171,7 +171,8 @@ $(document).ready(function() {
         getBookDataFromJson(bookUrl, titleTrending, divGrid, 3);
     }
 
-    function getByGenre(genre_id, genre) {
+    async function getByGenre(genre_id, genre) {
+        await getToDo();
         clearPage();
         getMoviesByGenre(genre_id, genre);
         getShowsByGenre(genre_id, genre);
@@ -314,20 +315,20 @@ $(document).ready(function() {
     //reference entire search form
     $('.searchForm').submit(function(event) {
         event.preventDefault();
-        clearPage();
-        //search term is only concerned with what the user inputted
-        //Get input with .val();
-        searchTerm = $('.form-control').val();
-        searchMovies();
-        searchShows();
-        searchBooks();
+        search($('.form-control').val());
     });
 
-    if (URL_PARAMS.get('search-item') !== '') {
+    if (URL_PARAMS.get('search-item') != null) {
+        search(URL_PARAMS.get('search-item'));
+    }
+
+    async function search(searchQuery) {
+        console.log('Search query', searchQuery);
+        await getToDo();
+        searchTerm = searchQuery;
         clearPage();
         //search term is only concerned with what the user inputted
         //Get input with .val();
-        searchTerm = URL_PARAMS.get('search-item');
         searchMovies();
         searchShows();
         searchBooks();
