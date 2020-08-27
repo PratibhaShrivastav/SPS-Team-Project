@@ -323,7 +323,7 @@ $(document).ready(function() {
         searchBooks();
     });
 
-    if (URL_PARAMS.get('search-item') !== '') {
+    if (URL_PARAMS.get('search-item') != null) {
         clearPage();
         //search term is only concerned with what the user inputted
         //Get input with .val();
