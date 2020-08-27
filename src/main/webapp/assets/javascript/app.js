@@ -171,7 +171,8 @@ $(document).ready(function() {
         getBookDataFromJson(bookUrl, titleTrending, divGrid, 3);
     }
 
-    function getByGenre(genre_id, genre) {
+    async function getByGenre(genre_id, genre) {
+        await getToDo();
         clearPage();
         getMoviesByGenre(genre_id, genre);
         getShowsByGenre(genre_id, genre);
